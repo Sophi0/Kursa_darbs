@@ -1,13 +1,12 @@
 package lv.venta.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*;
+
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Table(name = "book_table")
 @Entity
@@ -16,69 +15,39 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 public class Book {
-	private long generatedId;
-	private static long idCounter = 0;
-	private String title;
-	private Author author;
-	private BookGenre genre;
-	private String description;
-	private int quantity = 0;
-	private LocalDate writingYear;
-	
-	public Book(String title, Author author, BookGenre genre, String description, int quantity, LocalDate writingYear) throws Exception {
-        setGeneratedId();
-		setTitle(title);
-		setAuthor(author);
-		setGenre(genre);
-		setDescription(description);
-		setQuantity(quantity);
-		setWritingYear(writingYear);
-    }
+    @Column(name="idb")
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Setter(value= AccessLevel.NONE)
+    private long idb;
 
-	public void setGeneratedId() {
-		this.generatedId = idCounter++;
-	}
+    @Column(name="title")
+    @Size(min=3, max=40)
+    @Pattern(regexp ="^[A-Z][a-zA-Z ]{0,39}$", message = "1.burtam jabut lielam, tikai latinu burti, max 40 simboli")
+    private String title;
 
-    public void setTitle(String title) throws Exception {
-        if(title.length() > 0 && title.length() < 100){
-            this.title = title;
-        } else throw new Exception("Title cannot be empty");
-    }
-    
-    public void setAuthor(Author author) throws Exception {
-        if(author != null)
-            this.author = author;
-        else throw new Exception("Invalid input author");
-    }
-    
-    public void setGenre(BookGenre genre) throws Exception {
-        if(genre != null)
-            this.genre = genre;
-        else throw new Exception("Invalid input genre");
-    }
+    @ManyToMany
+    @JoinTable(name="book_author_table", joinColumns = @JoinColumn(name = "idp"), inverseJoinColumns = @JoinColumn(name = "idb"))
+    @ToString.Exclude
+    private Collection<Author> author;
 
-    public void setDescription(String description) throws Exception {
-        if(description.length() > 0 && description.length() < 1000){
-            this.description = description;
-        } else throw new Exception("Description cannot be empty");
-    }
-    
-    public void setQuantity(int quantity) throws Exception {
-    	if (quantity <= 99 && quantity > 0) {
-            this.quantity = quantity;
-        } else {
-            throw new Exception("Invalid input quantity (it can be from 1 to 99)");
-        }
-    }
+    private BookGenre genre;
 
-    public void setWritingYear(LocalDate writingYear) throws Exception {
-    	if (writingYear.isAfter(LocalDate.now())) {
-            throw new Exception("Writing year cannot be in the future");
-        }
+    @Column(name="description")
+    @Size(max=40)
+    @Pattern(regexp ="^[A-Z][a-zA-Z ]{0,39}$", message = "1.burtam jabut lielam, tikai latinu burti, max 40 simboli")
+    private String description;
+
+    @Column(name="writingYear")
+    @NotNull
+    @Past
+    private LocalDate writingYear;
+
+    public Book(String title, Collection<Author> author, BookGenre genre, String description, LocalDate writingYear) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.description = description;
         this.writingYear = writingYear;
     }
-
-
-    
-    
 }
