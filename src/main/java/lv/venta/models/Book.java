@@ -62,7 +62,7 @@ public class Book {
 
 //        exemplars = new ArrayList<>();
         for (int i = 1; i <= quantity; i++) {
-            Exemplar exemplar = new Exemplar(title, author, genre, description, writingYear, false);
+            Exemplar exemplar = new Exemplar(title, author, genre, description, writingYear, quantity, false);
             exemplars.add(exemplar);
         }
     }

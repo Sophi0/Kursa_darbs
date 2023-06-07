@@ -26,8 +26,8 @@ public class Exemplar extends Book {
     @JoinColumn(name="idb")
     private Book book;
 
-    public Exemplar(String title, Collection<Author> author, BookGenre genre, String description, LocalDate writingYear, boolean isIssued) {
-        super(title, author, genre, description, writingYear);
+    public Exemplar(String title, Collection<Author> author, BookGenre genre, String description, LocalDate writingYear, int quantity, boolean isIssued) {
+        super(title, author, genre, description, writingYear, quantity);
         this.isIssued = isIssued;
     }
 }
