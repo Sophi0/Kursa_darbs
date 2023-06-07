@@ -1,20 +1,15 @@
 package lv.venta;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
+import lv.venta.models.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Bean;
 
-import jakarta.validation.constraints.AssertFalse.List;
-import lv.venta.models.Author;
-import lv.venta.models.BookGenre;
-import lv.venta.models.Librarian;
-import lv.venta.models.User;
 import lv.venta.repos.IAuthorRepo;
 import lv.venta.repos.IBookRepo;
 import lv.venta.repos.IExemplarIssueRepo;
@@ -51,7 +46,7 @@ public class JavaKursaDarbsApplication {
 				usRepo.save(u4);
 				usRepo.save(u5);
 				
-				//Book bk6 = new Book("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, " ", LocalDate.of(1980, 4, 23), 10);
+				Book bk6 = new Book("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, " ", LocalDate.of(1980, 4, 23), 10);
 
 			}
 
