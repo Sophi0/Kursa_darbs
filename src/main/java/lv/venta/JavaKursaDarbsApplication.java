@@ -55,7 +55,7 @@ public class JavaKursaDarbsApplication {
 				Exemplar ex8 = new Exemplar("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, " ", LocalDate.of(1980, 4, 23), 10, true);
 				exRepo.save(ex8);
 				
-				ExemplarIssue exi8 = new ExemplarIssue(new ArrayList(List.of(u4)), new ArrayList(List.of(lb2), new ArrayList(List.of(ex8), LocalDateTime.of(2023, 2, 20, 15, 20)));
+				ExemplarIssue exi8 = new ExemplarIssue(new ArrayList(List.of(u4)), new ArrayList(List.of(lb2), new ArrayList(List.of(ex8)), LocalDateTime.of(2023, 2, 20, 15, 20);
 
 			}
 
