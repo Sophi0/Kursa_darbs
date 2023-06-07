@@ -12,7 +12,7 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Exemplar extends Book {
+public class Exemplar {
     @Column(name="idex")
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -21,17 +21,16 @@ public class Exemplar extends Book {
 
     @Column(name="isIssued")
     private boolean isIssued; //eksemplars ir panemts
-    
+
     @ManyToOne
-    @JoinColumn(name="idb")
+    @JoinColumn(name = "idb")
     private Book book;
 
-    @ManyToMany(mappedBy="exemplar")
-    @ToString.Exclude
-    private Collection<ExemplarIssue> exemplarIssue;
+    @OneToOne(mappedBy = "exemplar")
+    private ExemplarIssue exemplarIssue;
 
-    public Exemplar(String title, Collection<Author> author, BookGenre genre, String description, LocalDate writingYear, int quantity, boolean isIssued) {
-        super(title, author, genre, description, writingYear, quantity);
+    public Exemplar(Book book, boolean isIssued) {
+        this.book = book;
         this.isIssued = isIssued;
     }
 }

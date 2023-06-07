@@ -31,6 +31,8 @@ public class Book {
     @ToString.Exclude
     private Collection<Author> author;
 
+    @Column(name="genre")
+    @NotNull
     private BookGenre genre;
 
     @Column(name="description")
@@ -48,8 +50,7 @@ public class Book {
     @Max(100)
     private int quantity;
 
-    @OneToMany(mappedBy="book")
-    @ToString.Exclude
+    @OneToMany(mappedBy = "book")
     private Collection<Exemplar> exemplars;
 
     public Book(String title, Collection<Author> author, BookGenre genre, String description, LocalDate writingYear, int quantity) {
@@ -61,9 +62,9 @@ public class Book {
         this.quantity = quantity;
 
 //        exemplars = new ArrayList<>();
-        for (int i = 1; i <= quantity; i++) {
+       /* for (int i = 1; i <= quantity; i++) {
             Exemplar exemplar = new Exemplar(title, author, genre, description, writingYear, quantity, false);
             exemplars.add(exemplar);
-        }
+        }*/
     }
 }

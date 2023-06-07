@@ -17,45 +17,35 @@ import org.springframework.beans.factory.annotation.Value;
 @NoArgsConstructor
 @ToString
 public class ExemplarIssue {
-	
 	@Column(name="idis")
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	@Setter(value= AccessLevel.NONE)
 	private long idis;
 
+    @ManyToOne
+    @JoinColumn(name = "idu")
+    private User user;
 
     @ManyToMany
-    @JoinTable(name="user_exemplar_issue_table", joinColumns = @JoinColumn(name = "idp"), inverseJoinColumns = @JoinColumn(name = "idis"))
-    @ToString.Exclude
-    private Collection<User> user;
+    @JoinColumn(name = "idp")
+    private Collection<Librarian> librarians;
 
-    @ManyToMany
-    @JoinTable(name="librarianIssue_exemplar_issue_table", joinColumns = @JoinColumn(name = "idp"), inverseJoinColumns = @JoinColumn(name = "idis"))
-    @ToString.Exclude
-    private Collection<Librarian> librarianIssue;
-
-    @ManyToMany
-    @JoinTable(name="librarianReturn_exemplar_issue_table", joinColumns = @JoinColumn(name = "idp"), inverseJoinColumns = @JoinColumn(name = "idis"))
-    @ToString.Exclude
-    private Collection<Librarian> librarianReturn;
-
-    @ManyToMany
-    @JoinTable(name="exemplar_exemplar_issue_table", joinColumns = @JoinColumn(name = "idex"), inverseJoinColumns = @JoinColumn(name = "idis"))
-    @ToString.Exclude
-    private Collection<Exemplar> exemplar;
+    @OneToOne
+    @JoinColumn(name = "idex")
+    private Exemplar exemplar;
 
     @Column(name="dateBookIsIssued")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @PastOrPresent
     private LocalDateTime dateBookIsIssued;
 
-    @Column(name="dateBookIsIssued")
+    @Column(name="expirationDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Value("#{T(java.time.LocalDateTime).now().plusWeeks(2)}")
     private LocalDateTime expirationDate;
 
-    @Column(name="dateBookIsIssued")
+    @Column(name="dateBookIsReturned")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @PastOrPresent
     private LocalDateTime dateBookIsReturned;
@@ -64,7 +54,7 @@ public class ExemplarIssue {
     @Setter(value=AccessLevel.NONE)
     private float fines; //0.1 euro every week
 
-
+    //TODO this function in service (for all books for user)
 	public void setFines(){
 		LocalDate date1 = expirationDate.toLocalDate();
 		LocalDate date2 = dateBookIsReturned.toLocalDate();
@@ -73,7 +63,7 @@ public class ExemplarIssue {
 		fines = (float) (daysBetween / 7 * 0.1);
 	}
 
-    public ExemplarIssue(Collection<User> user, Collection<Librarian> librarianIssue, Collection<Exemplar> exemplar, LocalDateTime dateBookIsIssued) {
+    public ExemplarIssue(User user, Librarian librarianIssue, Exemplar exemplar, LocalDateTime dateBookIsIssued) {
         this.user = user;
         this.librarianIssue = librarianIssue;
         this.exemplar = exemplar;
