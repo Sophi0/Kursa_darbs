@@ -43,11 +43,27 @@ public class Book {
     @Past
     private LocalDate writingYear;
 
-    public Book(String title, Collection<Author> author, BookGenre genre, String description, LocalDate writingYear) {
+    @Column(name="quantity")
+    @Min(0)
+    @Max(100)
+    private int quantity;
+
+    @OneToMany(mappedBy="book")
+    @ToString.Exclude
+    private Collection<Exemplar> exemplars;
+
+    public Book(String title, Collection<Author> author, BookGenre genre, String description, LocalDate writingYear, int quantity) {
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.description = description;
         this.writingYear = writingYear;
+        this.quantity = quantity;
+
+//        exemplars = new ArrayList<>();
+        for (int i = 1; i <= quantity; i++) {
+            Exemplar exemplar = new Exemplar(title, author, genre, description, writingYear, false);
+            exemplars.add(exemplar);
+        }
     }
 }
