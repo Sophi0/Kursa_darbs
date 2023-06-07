@@ -26,6 +26,10 @@ public class Exemplar extends Book {
     @JoinColumn(name="idb")
     private Book book;
 
+    @ManyToMany(mappedBy="exemplar")
+    @ToString.Exclude
+    private Collection<ExemplarIssue> exemplarIssue;
+
     public Exemplar(String title, Collection<Author> author, BookGenre genre, String description, LocalDate writingYear, int quantity, boolean isIssued) {
         super(title, author, genre, description, writingYear, quantity);
         this.isIssued = isIssued;

@@ -1,11 +1,9 @@
 package lv.venta.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.Collection;
 
 @Table(name = "librarian_table")
 @Entity
@@ -14,6 +12,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Librarian extends Person {
+    @ManyToMany(mappedBy="librarianIssue")
+    @ToString.Exclude
+    private Collection<ExemplarIssue> exemplarIssue;
+
+    @ManyToMany(mappedBy="librarianReturn")
+    @ToString.Exclude
+    private Collection<ExemplarIssue> exemplarReturn;
 
     public Librarian(String name, String surname) {
         super(name, surname);
