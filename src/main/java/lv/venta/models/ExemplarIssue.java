@@ -26,27 +26,28 @@ import lombok.ToString;
 @ToString
 public class ExemplarIssue {
 	
-	 @Column(name="idis")
-	    @Id
-	    @GeneratedValue(strategy= GenerationType.AUTO)
-	    @Setter(value= AccessLevel.NONE)
-	    private long idis;
-	 
-    private User user;
-    private Librarian librarianIssue;
-    private Librarian librarianReturn;
-    private Exemplar exemplar;
-    private LocalDateTime dateBookIsIssued = LocalDateTime.now();
-    private LocalDateTime expirationDate = LocalDateTime.now().plusWeeks(2);
-    private LocalDateTime dateBookIsReturned;
-    private float fines; //0.1 euro every week
+	@Column(name="idis")
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	@Setter(value= AccessLevel.NONE)
+	private long idis;
 
-    public void setFines(){
-        LocalDate date1 = expirationDate.toLocalDate();
-        LocalDate date2 = dateBookIsReturned.toLocalDate();
 
-        long daysBetween = ChronoUnit.DAYS.between(date1, date2);
-        fines = (float) (daysBetween / 7 * 0.1);
-    }
+	private User user;
+	private Librarian librarianIssue;
+	private Librarian librarianReturn;
+	private Exemplar exemplar;
+	private LocalDateTime dateBookIsIssued = LocalDateTime.now();
+	private LocalDateTime expirationDate = LocalDateTime.now().plusWeeks(2);
+	private LocalDateTime dateBookIsReturned;
+	private float fines; //0.1 euro every week
+
+	public void setFines(){
+		LocalDate date1 = expirationDate.toLocalDate();
+		LocalDate date2 = dateBookIsReturned.toLocalDate();
+
+		long daysBetween = ChronoUnit.DAYS.between(date1, date2);
+		fines = (float) (daysBetween / 7 * 0.1);
+	}
 
 }
