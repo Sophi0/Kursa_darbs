@@ -1,8 +1,9 @@
 package lv.venta.repos;
 
-import java.awt.print.Book;
 
 import org.springframework.data.repository.CrudRepository;
+
+import lv.venta.models.Book;
 
 public interface IBookRepo extends CrudRepository<Book, Long>{
 

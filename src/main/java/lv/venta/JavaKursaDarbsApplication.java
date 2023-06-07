@@ -1,6 +1,7 @@
 package lv.venta;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,14 @@ public class JavaKursaDarbsApplication {
 				usRepo.save(u5);
 				
 				Book bk6 = new Book("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, " ", LocalDate.of(1980, 4, 23), 10);
+				Book bk7 = new Book("Master i Margarita", new ArrayList(List.of(au2)), BookGenre.Romantic, " ", LocalDate.of(1975, 2, 10), 20);
+				bkRepo.save(bk6);
+				bkRepo.save(bk7);
+				
+				Exemplar ex8 = new Exemplar("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, " ", LocalDate.of(1980, 4, 23), 10, true);
+				exRepo.save(ex8);
+				
+				ExemplarIssue exi8 = new ExemplarIssue(new ArrayList(List.of(u4)), new ArrayList(List.of(lb2), new ArrayList(List.of(ex8), LocalDateTime.of(2023, 2, 20, 15, 20)));
 
 			}
 
