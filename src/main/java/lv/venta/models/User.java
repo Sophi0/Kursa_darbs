@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.Collection;
+
 @Table(name = "user_table")
 @Entity
 @Getter
@@ -25,6 +27,10 @@ public class User extends Person {
 	@Size(min=8, max=20)
 	@Pattern(regexp="[a-z0-9.]{8,20}")
 	private String username;
+
+	@ManyToMany(mappedBy="user")
+	@ToString.Exclude
+	private Collection<ExemplarIssue> exemplarIssue;
 
 	public User(String name, String surname, String email, String username) {
 		super(name, surname);
