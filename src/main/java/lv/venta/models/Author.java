@@ -3,6 +3,7 @@ package lv.venta.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -16,11 +17,13 @@ public class Author extends Person {
     @Column(name="dateOfBirth")
     @NotNull
     @Past
-	private LocalDate dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfBirth;
 
     @Column(name="dateOfDeath")
     @NotNull
     @PastOrPresent
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfDeath;
 
     @ManyToMany(mappedBy="author")
