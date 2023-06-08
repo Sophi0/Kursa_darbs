@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
-
-import java.time.LocalDate;
 import java.util.Collection;
 
 @Table(name = "book_table")
@@ -41,9 +39,9 @@ public class Book {
     private String description;
 
     @Column(name="writingYear")
-    @NotNull
-    @Past
-    private LocalDate writingYear;
+    @Min(1000)
+    @Max(2023)
+    private int writingYear;
 
     @Column(name="quantity")
     @Min(0)
@@ -53,18 +51,12 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private Collection<Exemplar> exemplars;
 
-    public Book(String title, Collection<Author> author, BookGenre genre, String description, LocalDate writingYear, int quantity) {
+    public Book(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) {
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.description = description;
         this.writingYear = writingYear;
         this.quantity = quantity;
-
-//        exemplars = new ArrayList<>();
-       /* for (int i = 1; i <= quantity; i++) {
-            Exemplar exemplar = new Exemplar(title, author, genre, description, writingYear, quantity, false);
-            exemplars.add(exemplar);
-        }*/
     }
 }

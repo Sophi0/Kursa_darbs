@@ -3,9 +3,6 @@ package lv.venta.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
-import java.util.Collection;
-
 @Table(name = "exemplar_table")
 @Entity
 @Getter

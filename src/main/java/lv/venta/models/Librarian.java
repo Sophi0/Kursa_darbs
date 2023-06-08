@@ -12,10 +12,10 @@ import java.util.Collection;
 @NoArgsConstructor
 @ToString
 public class Librarian extends Person {
-    @OneToMany(mappedBy = "librarianIssue")
+    @OneToMany(mappedBy = "librarian")
     private Collection<ExemplarIssue> exemplarIssue;
 
-    @OneToMany(mappedBy = "librarianReturn")
+    @OneToMany(mappedBy = "librarian")
     private Collection<ExemplarIssue> exemplarReturn;
 
     public Librarian(String name, String surname) {

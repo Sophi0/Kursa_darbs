@@ -6,17 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lv.venta.models.*;
+import lv.venta.repos.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import lv.venta.repos.IAuthorRepo;
-import lv.venta.repos.IBookRepo;
-import lv.venta.repos.IExemplarIssueRepo;
-import lv.venta.repos.IExemplarRepo;
-import lv.venta.repos.ILibrarianRepo;
-import lv.venta.repos.IUserRepo;
 
 @SpringBootApplication
 public class JavaKursaDarbsApplication {
@@ -26,7 +20,7 @@ public class JavaKursaDarbsApplication {
 	}
 
 	@Bean
-	public CommandLineRunner testModel(IAuthorRepo auRepo, IBookRepo bkRepo, IExemplarIssueRepo exiRepo, IExemplarRepo exRepo, ILibrarianRepo lbRepo, IUserRepo usRepo) {
+	public CommandLineRunner testModel(IAuthorRepo auRepo, IBookRepo bkRepo, IExemplarIssueRepo exiRepo, IExemplarReturnRepo exRetRepo, IExemplarRepo exRepo, ILibrarianRepo lbRepo, IUserRepo usRepo) {
 		return new CommandLineRunner() {
 
 			@Override
@@ -47,8 +41,8 @@ public class JavaKursaDarbsApplication {
 				usRepo.save(u4);
 				usRepo.save(u5);
 				
-				Book bk6 = new Book("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, " ", LocalDate.of(1980, 4, 23), 10);
-				Book bk7 = new Book("Master i Margarita", new ArrayList(List.of(au2)), BookGenre.Romantic, " ", LocalDate.of(1975, 2, 10), 20);
+				Book bk6 = new Book("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, "Hello", 1995, 10);
+				Book bk7 = new Book("Master i Margarita", new ArrayList(List.of(au2)), BookGenre.Romantic, "Hello", 1895, 20);
 				bkRepo.save(bk6);
 				bkRepo.save(bk7);
 				
@@ -56,8 +50,13 @@ public class JavaKursaDarbsApplication {
 				Exemplar ex8 = new Exemplar(bk6, false);
 				exRepo.save(ex8);
 				
-				ExemplarIssue exi8 = new ExemplarIssue(u4, lb2, ex8, LocalDateTime.of(2023, 2, 20, 15, 20));
+				ExemplarIssue exi8 = new ExemplarIssue(u4, lb2, ex8);
 				exiRepo.save(exi8);
+
+				ExemplarReturn exRet9 = new ExemplarReturn(u5, lb3, ex8);
+				exRetRepo.save(exRet9);
+
+
 			}
 
 		};
