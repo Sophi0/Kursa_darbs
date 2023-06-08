@@ -1,6 +1,7 @@
 package services;
 
 public interface LibrarianService {
+    void insertNewBook();
 
     /*insert new Book
     * creating new Book
