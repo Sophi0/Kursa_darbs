@@ -21,11 +21,5 @@ public class Librarian extends Person {
     public Librarian(String name, String surname) {
         super(name, surname);
     }
-    
-    //addBook
-    //removeBook
-    //addExemplar
-    //removeExemplar
-    //addAuthor
-    //removeAuthor
+
 }
