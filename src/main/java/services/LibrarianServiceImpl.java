@@ -2,12 +2,7 @@ package services;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-
 import org.springframework.stereotype.Service;
-
-import lv.venta.models.Author;
-import lv.venta.models.BookGenre;
-import lv.venta.models.Exemplar;
 import lv.venta.models.*;
 import lv.venta.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,7 +112,7 @@ public class LibrarianServiceImpl implements LibrarianService {
 
     @Override
 	public void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description,
-			int writingYear, int quantity, Collection<Exemplar> exemplars) throws Exception {
+			int writingYear, int quantity) throws Exception {
 		if(id > 0) {
 			if(bookRepo.existsById(id)) {
 				Book temp = bookRepo.findById(id).get();
@@ -127,9 +122,20 @@ public class LibrarianServiceImpl implements LibrarianService {
 				temp.setDescription(description);
 				temp.setWritingYear(writingYear);
 				temp.setQuantity(quantity);
-				temp.setExemplars(exemplars);
 
 				bookRepo.save(temp);
+
+                for(Exemplar exemplar : exemplarRepo.findByBookTitle(temp.getTitle())){
+                    exemplar.getBook().setTitle(title);
+                    exemplar.getBook().setAuthor(author);
+                    exemplar.getBook().setGenre(genre);
+                    exemplar.getBook().setDescription(description);
+                    exemplar.getBook().setWritingYear(writingYear);
+                    exemplar.getBook().setQuantity(quantity);
+
+                    exemplarRepo.save(exemplar);
+                    bookRepo.save(temp);
+                }
 			}
 			else {
 				throw new Exception("There is no book with this ID");
