@@ -12,6 +12,7 @@ import lv.venta.models.ExemplarIssue;
 import lv.venta.models.*;
 import lv.venta.repos.IAuthorRepo;
 import lv.venta.repos.IBookRepo;
+import lv.venta.repos.IUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,8 @@ public class LibrarianServiceImpl implements LibrarianService {
     private IBookRepo bookRepo;
     @Autowired
     private IAuthorRepo authorRepo;
+    @Autowired
+    private IUserRepo userRepo;
 
     @Override
     public void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
@@ -44,16 +47,23 @@ public class LibrarianServiceImpl implements LibrarianService {
     public void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception {
         if(authorId > 0){
             Author authorTemp = authorRepo.findByIdp(authorId);
-            /*driverTemp.setName(name);
-            driverTemp.setSurname(surname);
-            driverTemp.setCategories(categories);
-            driverRepo.save(driverTemp);*/
+            authorTemp.setName(name);
+            authorTemp.setSurname(surname);
+            authorTemp.setDateOfBirth(dateOfBirth);
+            authorTemp.setDateOfDeath(dateOfDeath);
+            authorRepo.save(authorTemp);
         } else throw new Exception("Incorrect id");
     }
     @Override
-    public void deleteAuthor(long authorId) throws Exception {}
+    public void deleteAuthor(long authorId) throws Exception {
+        if(authorId > 0){
+            authorRepo.deleteByIdp(authorId);
+        } else throw new Exception("Incorrect id");
+    }
     @Override
-    public void deleteAuthor(String name, String surname) throws Exception {}
+    public void deleteAuthor(String name, String surname) {
+        authorRepo.deleteByNameAndSurname(name, surname);
+    }
 
 	@Override
 	public void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description,
@@ -68,7 +78,7 @@ public class LibrarianServiceImpl implements LibrarianService {
 				temp.setWritingYear(writingYear);
 				temp.setQuantity(quantity);
 				temp.setExemplars(exemplars);
-				
+
 				bookRepo.save(temp);
 			}
 			else {
@@ -77,10 +87,10 @@ public class LibrarianServiceImpl implements LibrarianService {
 		}
 		else {
 			throw new Exception("ID needs to be positive");
-		}	
 		}
-		
-	
+		}
+
+
 
 	@Override
 	public void deleteBookById(long idb) throws Exception {
@@ -100,28 +110,38 @@ public class LibrarianServiceImpl implements LibrarianService {
 		else {
 			throw new Exception("ID need to be positive");
 		}
-		
+
 	}
 
-	@Override
-	public void insertNewUser(String email, String username, Collection<ExemplarIssue> exemplarIssue, float fines)
-			throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void insertNewUser(String name, String surname, String email, String username) throws Exception {
+        if(!(userRepo.findByUsername(username) && userRepo.findByEmail(email))){
+            userRepo.save(new User(name, surname, email, username));
+        } else throw new Exception("User with this username and email already exists");
+    }
 
-	@Override
-	public void updateUser(long id, String email, String username, Collection<ExemplarIssue> exemplarIssue, float fines)
-			throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateUser(long id, String name, String surname, String email, String username) throws Exception {
+        if(id > 0){
+            User userTemp = userRepo.findByIdp(id);
+            userTemp.setName(name);
+            userTemp.setSurname(surname);
+            userTemp.setEmail(email);
+            userTemp.setUsername(username);
+            userRepo.save(userTemp);
+        } else throw new Exception("Incorrect id");
+    }
 
-	@Override
-	public void deleteUserById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void deleteUserById(long id) throws Exception {
+        if(id > 0){
+            userRepo.deleteByIdp(id);
+        } else throw new Exception("Incorrect id");
+    }
 
-
+    @Override
+    public void deleteUserByUsername(String username) throws Exception {
+        if(!(userRepo.deleteByUsername(username)))
+            throw new Exception("Incorrect username");
+    }
 }

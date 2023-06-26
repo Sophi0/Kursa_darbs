@@ -18,20 +18,20 @@ public interface LibrarianService {
     
     void deleteExemplarById(long idex) throws Exception;
     
-    void insertNewUser(String email, String username, Collection<ExemplarIssue> exemplarIssue, float fines) throws Exception;
+    void insertNewUser(String name, String surname, String email, String username) throws Exception;
     
-    void updateUser(long id, String email, String username, Collection<ExemplarIssue> exemplarIssue, float fines) throws Exception;
-    
+    void updateUser(long id, String name, String surname, String email, String username) throws Exception;
+
     void deleteUserById(long id) throws Exception;
+    void deleteUserByUsername(String username) throws Exception;
 
     void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
-    
     void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
-    
     void deleteAuthor(long authorId) throws Exception;
-    
+
     void deleteAuthor(String name, String surname) throws Exception;
-    
+    void deleteAuthor(String name, String surname);
+
     
     /*insert new Book
     * creating new Book
