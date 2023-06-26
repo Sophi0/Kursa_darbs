@@ -14,6 +14,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private IBookRepo bookRepo;
     @Autowired
+    private IExemplarRepo exemplarRepo;
+    @Autowired
     private IExemplarIssueRepo exemplarIssueRepo;
     @Autowired
     private IExemplarReturnRepo exemplarReturnRepo;
@@ -70,7 +72,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void bookBooks(ArrayList<Book> books) {
-
+    public boolean bookBook(long idb, long idp) throws Exception{
+    	if(idb > 0) {
+    		Book book = bookRepo.findByIdb(idb);
+    		User user = userRepo.findByIdp(idp);
+    		for(Exemplar exemplar : book.getExemplars()) {
+    			if(!exemplar.isIssued()) {
+    				exemplarIssueRepo.save(new ExemplarIssue(user, exemplar));
+    				exemplar.setIssued(true);
+    				
+    				exemplarRepo.save(exemplar);
+    				userRepo.save(user);
+    				return true;
+    			}
+    		}
+    		return false;
+    	}
+    	else {
+    		throw new Exception("Incorrect id");
+    	}
     }
 }

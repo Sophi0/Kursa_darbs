@@ -11,7 +11,7 @@ public interface UserService {
     ArrayList<Book> selectAllBooks();
     ArrayList<Exemplar> selectAllUserBooks(long userId);
     float finesForAllBooks(long userId) throws Exception;
-    void bookBooks(ArrayList<Book> books);
+    boolean bookBook(long idb, long idp) throws Exception;
 
     /*
     * //for all books for user --> on the page with allMyBooks user see his fines for all his books

@@ -43,4 +43,12 @@ public class ExemplarIssue {
         this.librarian = librarian;
         this.exemplar = exemplar;
     }
+
+	public ExemplarIssue(User user, Exemplar exemplar) {
+		super();
+		this.user = user;
+		this.exemplar = exemplar;
+	}
+    
+    
 }
