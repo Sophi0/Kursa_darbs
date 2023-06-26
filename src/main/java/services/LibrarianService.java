@@ -25,8 +25,11 @@ public interface LibrarianService {
     void deleteUserById(long id) throws Exception;
 
     void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
+    
     void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
+    
     void deleteAuthor(long authorId) throws Exception;
+    
     void deleteAuthor(String name, String surname) throws Exception;
     
     

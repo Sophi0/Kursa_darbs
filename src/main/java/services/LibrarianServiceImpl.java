@@ -58,19 +58,48 @@ public class LibrarianServiceImpl implements LibrarianService {
 	@Override
 	public void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description,
 			int writingYear, int quantity, Collection<Exemplar> exemplars) throws Exception {
-		// TODO Auto-generated method stub
+		if(id > 0) {
+			if(bookRepo.existsById(id)) {
+				Book temp = bookRepo.findById(id).get();
+				temp.setTitle(title);
+				temp.setAuthor(author);
+				temp.setGenre(genre);
+				temp.setDescription(description);
+				temp.setWritingYear(writingYear);
+				temp.setQuantity(quantity);
+				temp.setExemplars(exemplars);
+				
+				bookRepo.save(temp);
+			}
+			else {
+				throw new Exception("There is no book with this ID");
+			}
+		}
+		else {
+			throw new Exception("ID needs to be positive");
+		}	
+		}
 		
-	}
+	
 
 	@Override
 	public void deleteBookById(long idb) throws Exception {
-		// TODO Auto-generated method stub
-		
+		if(idb > 0) {
+			bookRepo.deleteById(idb);
+		}
+		else {
+			throw new Exception("ID need to be positive");
+		}
 	}
 
 	@Override
 	public void deleteExemplarById(long idex) throws Exception {
-		// TODO Auto-generated method stub
+		if(idex > 0) {
+			bookRepo.deleteById(idex);
+		}
+		else {
+			throw new Exception("ID need to be positive");
+		}
 		
 	}
 
