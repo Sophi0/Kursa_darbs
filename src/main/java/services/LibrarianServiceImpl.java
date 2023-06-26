@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -93,8 +94,12 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
 
     @Override
-    public void updateExpiringDate(long userId, long librarianId, long exemplarId) throws Exception {
-
+    public void updateExpiringDate(long exemplarIssueId, LocalDateTime newDateTime) throws Exception {
+        if(exemplarIssueId > 0) {
+            ExemplarIssue exemplarIssue = exemplarIssueRepo.findByIdis(exemplarIssueId);
+            exemplarIssue.setExpiryDate(newDateTime);
+            exemplarIssueRepo.save(exemplarIssue);
+        } else throw new Exception("Incorrect id");
     }
 
     @Override

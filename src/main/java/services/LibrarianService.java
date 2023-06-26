@@ -1,6 +1,7 @@
 package services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import lv.venta.models.*;
@@ -29,7 +30,7 @@ public interface LibrarianService {
 
     void giveBook(long userId, long librarianId, long exemplarId) throws Exception;
     void returnBook(long userId, long librarianId, long exemplarId) throws Exception;
-    void updateExpiringDate(long userId, long librarianId, long exemplarId) throws Exception;
+    void updateExpiringDate(long exemplarIssueId, LocalDateTime newDateTime) throws Exception;
 
 
     /*insert new Book

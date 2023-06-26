@@ -10,4 +10,6 @@ import java.util.ArrayList;
 public interface IExemplarIssueRepo extends CrudRepository<ExemplarIssue, Long>{
 
     ArrayList<ExemplarIssue> findAllByUserIdp(long userId);
+
+    ExemplarIssue findByIdis(long exemplarIssueId);
 }
