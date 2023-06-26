@@ -35,16 +35,23 @@ public class LibrarianServiceImpl implements LibrarianService {
     public void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception {
         if(authorId > 0){
             Author authorTemp = authorRepo.findByIdp(authorId);
-            /*driverTemp.setName(name);
-            driverTemp.setSurname(surname);
-            driverTemp.setCategories(categories);
-            driverRepo.save(driverTemp);*/
+            authorTemp.setName(name);
+            authorTemp.setSurname(surname);
+            authorTemp.setDateOfBirth(dateOfBirth);
+            authorTemp.setDateOfDeath(dateOfDeath);
+            authorRepo.save(authorTemp);
         } else throw new Exception("Incorrect id");
     }
     @Override
-    public void deleteAuthor(long authorId) throws Exception {}
+    public void deleteAuthor(long authorId) throws Exception {
+        if(authorId > 0){
+            authorRepo.deleteByIdp(authorId);
+        } else throw new Exception("Incorrect id");
+    }
     @Override
-    public void deleteAuthor(String name, String surname) throws Exception {}
+    public void deleteAuthor(String name, String surname) {
+        authorRepo.deleteByNameAndSurname(name, surname);
+    }
 
     @Override
     public void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity, Collection<Exemplar> exemplars) throws Exception {

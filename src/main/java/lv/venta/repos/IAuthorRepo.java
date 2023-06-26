@@ -17,4 +17,8 @@ public interface IAuthorRepo extends CrudRepository<Author, Long>{
     boolean findByDateOfDeath(LocalDate dateOfDeath);
 
     Author findByIdp(long authorId);
+
+    void deleteByIdp(long authorId);
+
+    void deleteByNameAndSurname(String name, String surname);
 }
