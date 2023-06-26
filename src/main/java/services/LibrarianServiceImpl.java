@@ -19,7 +19,15 @@ public class LibrarianServiceImpl implements LibrarianService {
     @Autowired
     private IAuthorRepo authorRepo;
     @Autowired
+    private ILibrarianRepo librarianRepo;
+    @Autowired
     private IUserRepo userRepo;
+    @Autowired
+    private IExemplarRepo exemplarRepo;
+    @Autowired
+    private IExemplarIssueRepo exemplarIssueRepo;
+    @Autowired
+    private IExemplarReturnRepo exemplarReturnRepo;
 
     @Override
     public void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
@@ -58,7 +66,38 @@ public class LibrarianServiceImpl implements LibrarianService {
         authorRepo.deleteByNameAndSurname(name, surname);
     }
 
-	@Override
+    @Override
+    public void giveBook(long userId, long librarianId, long exemplarId) throws Exception {
+        if(userId > 0 && librarianId > 0 && exemplarId > 0){
+            User user = userRepo.findByIdp(userId);
+            Librarian librarian = librarianRepo.findByIdp(librarianId);
+            Exemplar exemplar = exemplarRepo.findByIdex(exemplarId);
+            exemplarIssueRepo.save(new ExemplarIssue(user, librarian, exemplar));
+            userRepo.save(user);
+            librarianRepo.save(librarian);
+            exemplarRepo.save(exemplar);
+        } else throw new Exception("Incorrect id");
+    }
+
+    @Override
+    public void returnBook(long userId, long librarianId, long exemplarId) throws Exception {
+        if(userId > 0 && librarianId > 0 && exemplarId > 0){
+            User user = userRepo.findByIdp(userId);
+            Librarian librarian = librarianRepo.findByIdp(librarianId);
+            Exemplar exemplar = exemplarRepo.findByIdex(exemplarId);
+            exemplarReturnRepo.save(new ExemplarReturn(user, librarian, exemplar));
+            userRepo.save(user);
+            librarianRepo.save(librarian);
+            exemplarRepo.save(exemplar);
+        } else throw new Exception("Incorrect id");
+    }
+
+    @Override
+    public void updateExpiringDate(long userId, long librarianId, long exemplarId) throws Exception {
+
+    }
+
+    @Override
 	public void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description,
 			int writingYear, int quantity, Collection<Exemplar> exemplars) throws Exception {
 		if(id > 0) {

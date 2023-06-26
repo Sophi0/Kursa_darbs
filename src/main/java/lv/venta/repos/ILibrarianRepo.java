@@ -6,4 +6,5 @@ import lv.venta.models.Librarian;
 
 public interface ILibrarianRepo extends CrudRepository<Librarian, Long>{
 
+    Librarian findByIdp(long librarianId);
 }
