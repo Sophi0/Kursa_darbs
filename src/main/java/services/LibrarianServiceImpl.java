@@ -4,4 +4,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LibrarianServiceImpl implements LibrarianService {
+
+	@Override
+	public void insertNewBook() {
+		// TODO Auto-generated method stub
+		
+	}
 }
