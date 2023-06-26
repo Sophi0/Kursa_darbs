@@ -13,10 +13,7 @@ public interface UserService {
     float finesForAllBooks();
     void bookBooks(ArrayList<Book> books);
 
-    /*selectAllBooksByAuthorName
-    * selectAllBooksByBookTitle
-    * selectAllBooks
-    * selectAllMyBooks - visi eksemplari kurus panema users
+    /*
     * //for all books for user --> on the page with allMyBooks user see his fines for all his books
 	/*public void setFines(){
 		LocalDate date1 = expirationDate.toLocalDate();
@@ -34,8 +31,4 @@ public interface UserService {
     * exemplar status - panemts
     * user has this exemplars*/
 
-    //localhost.../user/allBooks
-    //localhost.../user/allBooks/{author}
-    //local/booking/allBooks *
-    //localhost.../allMyBooks/{userId}
 }
