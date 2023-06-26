@@ -1,10 +1,19 @@
 package services;
 
+import lv.venta.models.Book;
+import lv.venta.models.Exemplar;
+
+import java.util.ArrayList;
+
 public interface UserService {
-    /*selectAllBooksByAuthorName
-    * selectAllBooksByBookTitle
-    * selectAllBooks
-    * selectAllMyBooks - visi eksemplari kurus panema users
+    ArrayList<Book> selectAllBooksByAuthorName(String surname);
+    ArrayList<Book> selectAllBooksByBookTitle(String title);
+    ArrayList<Book> selectAllBooks();
+    ArrayList<Exemplar> selectAllUserBooks(long userId);
+    float finesForAllBooks();
+    void bookBooks(ArrayList<Book> books);
+
+    /*
     * //for all books for user --> on the page with allMyBooks user see his fines for all his books
 	/*public void setFines(){
 		LocalDate date1 = expirationDate.toLocalDate();
@@ -22,8 +31,4 @@ public interface UserService {
     * exemplar status - panemts
     * user has this exemplars*/
 
-    //localhost.../user/allBooks
-    //localhost.../user/allBooks/{author}
-    //local/booking/allBooks *
-    //localhost.../allMyBooks/{userId}
 }
