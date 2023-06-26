@@ -7,19 +7,14 @@ import java.util.Collection;
 import lv.venta.models.*;
 
 public interface LibrarianService {
-
     void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
-
     void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity, Collection<Exemplar> exemplars) throws Exception;
-
     void deleteBookById(long idb) throws Exception;
 
     void deleteExemplarById(long idex) throws Exception;
 
     void insertNewUser(String name, String surname, String email, String username) throws Exception;
-
     void updateUser(long id, String name, String surname, String email, String username) throws Exception;
-
     void deleteUserById(long id) throws Exception;
     void deleteUserByUsername(String username) throws Exception;
 
@@ -32,18 +27,6 @@ public interface LibrarianService {
     void returnBook(long userId, long librarianId, long exemplarId) throws Exception;
     void updateExpiringDate(long exemplarIssueId, LocalDateTime newDateTime) throws Exception;
 
-
-    /*insert new Book
-     * creating new Book
-     * adding book to book repository
-     * using for loop creating exemplars of a book*/
-
-    /*
-     * **** write a message to user ---> user receives message in page allMyBooks
-     * giveBook
-     * returnBook
-     * updateExpiringDate
-     *
-     * */
+    void writeMessage(long userId, String message) throws Exception;
 
 }

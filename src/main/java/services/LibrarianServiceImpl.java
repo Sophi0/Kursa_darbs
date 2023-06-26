@@ -34,7 +34,12 @@ public class LibrarianServiceImpl implements LibrarianService {
     public void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
         //TODO if not working -> findByTitle() and others functions are the reason
         if(!(bookRepo.findByTitle(title) && bookRepo.findByWritingYear(writingYear))){
-            bookRepo.save(new Book(title, author, genre, description, writingYear, quantity));
+            Book book = new Book(title, author, genre, description, writingYear, quantity);
+            bookRepo.save(book);
+            for(int i = 0; i < quantity; i++){
+                exemplarRepo.save(new Exemplar(book, false));
+                bookRepo.save(book);
+            }
         } else throw new Exception("Book with this title and writingYear already exists");
     }
     @Override
@@ -103,6 +108,14 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
 
     @Override
+    public void writeMessage(long userId, String message) throws Exception {
+        if(userId > 0){
+            User user = userRepo.findByIdp(userId);
+            user.setMessage(message);
+        } else throw new Exception("Incorrect id");
+    }
+
+    @Override
 	public void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description,
 			int writingYear, int quantity, Collection<Exemplar> exemplars) throws Exception {
 		if(id > 0) {
@@ -126,8 +139,6 @@ public class LibrarianServiceImpl implements LibrarianService {
 			throw new Exception("ID needs to be positive");
 		}
 		}
-
-
 
 	@Override
 	public void deleteBookById(long idb) throws Exception {

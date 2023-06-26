@@ -30,6 +30,9 @@ public class User extends Person {
 	@Column(name="fines")
 	private float fines; //0.1 euro every week
 
+	@Column(name="message")
+	private String message;
+
 	public User(String name, String surname, String email, String username) {
 		super(name, surname);
 		this.email = email;
