@@ -1,7 +1,12 @@
 package services;
 
+import lv.venta.models.Author;
+import lv.venta.models.BookGenre;
+
+import java.util.Collection;
+
 public interface LibrarianService {
-    void insertNewBook();
+    void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
 
     /*insert new Book
     * creating new Book
