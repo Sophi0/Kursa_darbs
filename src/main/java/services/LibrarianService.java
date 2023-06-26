@@ -2,11 +2,9 @@ package services;
 
 import java.time.LocalDate;
 import java.util.Collection;
-
 import lv.venta.models.Author;
 import lv.venta.models.BookGenre;
 import lv.venta.models.Exemplar;
-import lv.venta.models.ExemplarIssue;
 
 public interface LibrarianService {
 	
@@ -28,8 +26,6 @@ public interface LibrarianService {
     void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
     void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
     void deleteAuthor(long authorId) throws Exception;
-
-    void deleteAuthor(String name, String surname) throws Exception;
     void deleteAuthor(String name, String surname);
 
     

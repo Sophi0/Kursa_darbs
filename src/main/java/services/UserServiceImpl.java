@@ -5,6 +5,8 @@ import lv.venta.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 @Service
@@ -13,6 +15,10 @@ public class UserServiceImpl implements UserService {
     private IBookRepo bookRepo;
     @Autowired
     private IExemplarIssueRepo exemplarIssueRepo;
+    @Autowired
+    private IExemplarReturnRepo exemplarReturnRepo;
+    @Autowired
+    private IUserRepo userRepo;
 
     @Override
     public ArrayList<Book> selectAllBooksByAuthorName(String surname) {
@@ -39,8 +45,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public float finesForAllBooks() {
-        return 0;
+    public float finesForAllBooks(long userId) throws Exception {
+        /*
+        * find user by id
+        * find all books of this user
+        * for every book we get dates and set fines
+        * all fines are summed and returned
+        * */
+        float summa = 0f;
+        if(userId > 0) {
+            User user = userRepo.findByIdp(userId);
+            ArrayList<ExemplarIssue> userExemplarIssues = (ArrayList<ExemplarIssue>) user.getExemplarIssue();
+            for(ExemplarIssue exemplarIss : userExemplarIssues){
+                LocalDate date1 = exemplarIss.getExpiryDate().toLocalDate();
+                ExemplarReturn exReturn = exemplarReturnRepo.findByExemplarIdex(exemplarIss.getExemplar().getIdex());
+                LocalDate date2 = exReturn.getDateBookIsReturned().toLocalDate();
+
+                long daysBetween = ChronoUnit.DAYS.between(date1, date2);
+                float fines = (float) (daysBetween / 7 * 0.1);
+                summa += fines;
+            }
+        } else throw new Exception("Incorrect id");
+        return summa;
     }
 
     @Override

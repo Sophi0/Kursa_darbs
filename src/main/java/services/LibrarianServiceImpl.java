@@ -7,17 +7,10 @@ import org.springframework.stereotype.Service;
 import lv.venta.models.Author;
 import lv.venta.models.BookGenre;
 import lv.venta.models.Exemplar;
-import lv.venta.models.ExemplarIssue;
-
 import lv.venta.models.*;
-import lv.venta.repos.IAuthorRepo;
-import lv.venta.repos.IBookRepo;
-import lv.venta.repos.IUserRepo;
+import lv.venta.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.util.Collection;
 
 @Service
 public class LibrarianServiceImpl implements LibrarianService {

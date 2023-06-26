@@ -10,7 +10,7 @@ public interface UserService {
     ArrayList<Book> selectAllBooksByBookTitle(String title);
     ArrayList<Book> selectAllBooks();
     ArrayList<Exemplar> selectAllUserBooks(long userId);
-    float finesForAllBooks();
+    float finesForAllBooks(long userId) throws Exception;
     void bookBooks(ArrayList<Book> books);
 
     /*
