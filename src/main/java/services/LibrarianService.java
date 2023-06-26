@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 import lv.venta.models.Author;
@@ -9,7 +10,7 @@ import lv.venta.models.ExemplarIssue;
 
 public interface LibrarianService {
 	
-    void insertNewBook() throws Exception;
+    void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
     
     void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity, Collection<Exemplar> exemplars) throws Exception;
     
@@ -21,7 +22,12 @@ public interface LibrarianService {
     
     void updateUser(long id, String email, String username, Collection<ExemplarIssue> exemplarIssue, float fines) throws Exception;
     
-    void deleteUserById(long id) throws Exception; 
+    void deleteUserById(long id) throws Exception;
+
+    void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
+    void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
+    void deleteAuthor(long authorId) throws Exception;
+    void deleteAuthor(String name, String surname) throws Exception;
     
     
     /*insert new Book
