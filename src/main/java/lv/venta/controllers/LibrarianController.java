@@ -250,8 +250,19 @@ public class LibrarianController {
     public String getDeleteAuthorById(@PathVariable("id") long id, Model model){
         try {
             librarianService.deleteAuthor(id);
-            model.addAttribute("book", librarianService.allBooks());
-            return "all-books-page"; //TODO
+            model.addAttribute("author", librarianService.allAuthors());
+            return "all-authors-page"; //TODO
+        } catch (Exception e){
+            model.addAttribute("packetError", e.getMessage());
+            return "error-page"; //TODO
+        }
+    }
+    @GetMapping("/librarian/delete-author/name-and-surname/{name}/{surname}") //localhost:8080/librarian/delete-author/1
+    public String getDeleteAuthorById(@PathVariable("name") String name, @PathVariable("surname") String surname, Model model){
+        try {
+            librarianService.deleteAuthor(name, surname);
+            model.addAttribute("author", librarianService.allAuthors());
+            return "all-authors-page"; //TODO
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page"; //TODO
