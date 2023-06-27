@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All authors</title>
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+<body>
+<h1>All authors</h1>
+<table>
+    <tr>
+        <th>Author id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Date of birth</th>
+        <th>Date of death</th>
+    </tr>
+    <th:block th:each="temp : ${author}">
+        <tr>
+            <td th:text="${temp.getIdp()}"></td>
+            <td th:text="${temp.getName()}"></td>
+            <td th:text="${temp.getSurname()}"></td>
+            <td th:text="${temp.getDateOfBirth()}"></td>
+            <td th:text="${temp.getDateOfDeath()}"></td>
+        </tr>
+    </th:block>
+</table>
+
+</body>
+</html>

@@ -44,7 +44,7 @@ public class LibrarianController {
     @GetMapping("/librarian/all-authors") //localhost:8080/librarian/all-authors
     public String getAllAuthors(Model model){
         model.addAttribute("author", librarianService.allAuthors());
-        return "all-authors-page"; //TODO
+        return "librarian-all-authors-page";
     }
     @GetMapping("/librarian/all-authors/{id}") //localhost:8080/librarian/all-users/2
     public String getAuthorById(@PathVariable("id") long id, Model model){
