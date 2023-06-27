@@ -16,12 +16,11 @@ import java.util.Collection;
 @AttributeOverride(name = "idp", column = @Column(name = "idu"))
 public class User extends Person {
 	@Column(name="email")
-	@Pattern(regexp="[a-zA-Z]+[0-9]{1,20}@[a-z]+.[a-z]+")
+	@Pattern(regexp="[a-zA-Z]+[0-9]{0,20}@[a-z]+.[a-z]+")
 	private String email;
 
 	@Column(name="username")
-	@Size(min=8, max=20)
-	@Pattern(regexp="[a-z0-9.]{8,20}")
+	@Pattern(regexp="[a-z0-9.]{3,20}")
 	private String username;
 
 	@OneToMany(mappedBy = "user")

@@ -20,8 +20,7 @@ public class Book {
     private long idb;
 
     @Column(name="title")
-    @Size(min=3, max=40)
-    @Pattern(regexp ="^[A-Z][a-zA-Z ]{0,39}$", message = "1.burtam jabut lielam, tikai latinu burti, max 40 simboli")
+    @Pattern(regexp ="[A-Z][\\w\\W]{0,59}")
     private String title;
 
     @ManyToOne
@@ -33,8 +32,7 @@ public class Book {
     private BookGenre genre;
 
     @Column(name="description")
-    @Size(max=40)
-    @Pattern(regexp ="^[A-Z][a-zA-Z ]{0,39}$", message = "1.burtam jabut lielam, tikai latinu burti, max 40 simboli")
+    @Pattern(regexp ="[A-Z][\\w\\W]{0,59}")
     private String description;
 
     @Column(name="writingYear")
