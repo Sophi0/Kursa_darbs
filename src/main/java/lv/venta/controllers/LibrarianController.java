@@ -51,10 +51,10 @@ public class LibrarianController {
         try {
             Author author = librarianService.retrieveAuthorById(id);
             model.addAttribute("author", author);
-            return "one-author-page"; //TODO
+            return "librarian-one-author-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     @GetMapping("/librarian/all-users") //localhost:8080/librarian/all-users
