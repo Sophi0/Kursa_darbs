@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/user/showAll/book/{surname}")	//localhost:8080/user/showAll/books/{surname}
+    @GetMapping(value = "/user/showAll/books/{surname}")	//localhost:8080/user/showAll/books/{surname}
 	public String getAllBooksByAuthorsSurname(Model model, @PathVariable("surname") String surname) {
 		try {
 			model.addAttribute("book", userService.selectAllBooksByAuthorSurname(surname));
@@ -30,7 +30,7 @@ public class UserController {
 		}
 	}
         
-    @GetMapping(value = "/user/showAll/book/{title}")	//localhost:8080/user/showAll/books/{title}
+    @GetMapping(value = "/user/showAll/book/{title}")	//localhost:8080/user/showAll/book/{title}
 	public String getAllBooksByTitle(Model model, @PathVariable("title") String title) {
 		try {
 			model.addAttribute("book", userService.selectAllBooksByBookTitle(title));
@@ -86,7 +86,7 @@ public class UserController {
             	userService.bookBook(idb, idp);
                 return "redirect:/user/showAll/book/" + idb + idp;
             } catch (Exception e) {
-                return "redirect:/error";
+                return "redirect:/error-page";
             }
         } else return "book-a-book-page";
     }
