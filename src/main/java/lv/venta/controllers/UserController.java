@@ -14,6 +14,7 @@ import services.UserService;
 
 @Controller
 public class UserController {
+	
     @Autowired
     private UserService userService;
 
