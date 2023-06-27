@@ -1,4 +1,4 @@
-package services;
+package lv.venta.services;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,8 +7,8 @@ import java.util.Collection;
 import lv.venta.models.*;
 
 public interface LibrarianService {
-    void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
-    void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
+    void insertNewBook(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
+    void updateBook(long id, String title, Author author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
     void deleteBookById(long idb) throws Exception;
 
     void deleteExemplarById(long idex) throws Exception;

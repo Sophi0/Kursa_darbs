@@ -20,5 +20,5 @@ public interface IUserRepo extends CrudRepository<User, Long>{
 
     boolean deleteByUsername(String username);
 
-    ArrayList<ExemplarIssue> findAllExemplarIssue();
+    //ArrayList<ExemplarIssue> findAllExemplarIssue();
 }

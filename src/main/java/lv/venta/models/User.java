@@ -39,7 +39,4 @@ public class User extends Person {
 		this.username = username;
 	}
 
-	//TODO bookABook()
-	//TODO ExtendExpiringDate()
-
 }

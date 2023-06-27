@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
 import lv.venta.models.Book;
-import services.UserService;
+import lv.venta.services.UserService;
 
 @Controller
 public class UserController {
@@ -18,10 +18,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/user/showAll/book/{surname}")	//localhost:8080/user/showAll/books/{name}
-	public String getAllBooksByAuthorsName(Model model, @PathVariable("surname") String surname) {
+    @GetMapping(value = "/user/showAll/book/{surname}")	//localhost:8080/user/showAll/books/{surname}
+	public String getAllBooksByAuthorsSurname(Model model, @PathVariable("surname") String surname) {
 		try {
-			model.addAttribute("book", userService.selectAllBooksByAuthorName(surname));
+			model.addAttribute("book", userService.selectAllBooksByAuthorSurname(surname));
 			return "all-book-page";
 		}
 		catch (Exception e) {
@@ -29,9 +29,7 @@ public class UserController {
 			return "error-page";
 		}
 	}
-    
- //TODO: MAKE ERROR-PAGE AND ALL-BOOK-PAGE
-    
+        
     @GetMapping(value = "/user/showAll/book/{title}")	//localhost:8080/user/showAll/books/{title}
 	public String getAllBooksByTitle(Model model, @PathVariable("title") String title) {
 		try {
@@ -51,9 +49,9 @@ public class UserController {
 	}
     
     @GetMapping(value = "/user/showAll/userBook/{id}")	//localhost:8080/user/showAll/userBook/{id}
-	public String getAllUserBooks(Model model, @PathVariable("userId") long id) {
+	public String getAllUserBooks(Model model, @PathVariable("id") long idp) {
 		try {
-			model.addAttribute("book", userService.selectAllUserBooks(id));
+			model.addAttribute("book", userService.selectAllUserBooks(idp));
 			return "all-book-page";
 		}
 		catch (Exception e) {
@@ -63,9 +61,9 @@ public class UserController {
 	}
     
     @GetMapping(value = "/user/showAll/fines/{id}")	//localhost:8080/user/showAll/fines/{id}
-    public String getAllFinesByUserId(Model model, @PathVariable("userId") long id) {
+    public String getAllFinesByUserId(Model model, @PathVariable("id") long idp) {
     	try {
-    		model.addAttribute("book", userService.finesForAllBooks(id));
+    		model.addAttribute("book", userService.finesForAllBooks(idp));
 			return "all-fines-book-page";
     	}
     	catch (Exception e) {
@@ -74,14 +72,14 @@ public class UserController {
 		}
     }
     
-    @GetMapping(value = "/user/bookAbook/{id}/{id}")	//localhost:8080/user/bookAbook/{id}/{id}
+    @GetMapping(value = "/user/bookAbook/{id}/{idp}")	//localhost:8080/user/bookAbook/{id}/{id}
     public String getBookABookById(@PathVariable("idb") long idb, @PathVariable("idp") long idp, Model model) {
     	model.addAttribute("book", new Book());
 		model.addAttribute("idp", idp);
 		return "book-a-book-page";
     }
     
-    @PostMapping("/user/bookAbook/{id}/{id}")
+    @PostMapping("/user/bookAbook/{id}/{idp}")
     public String postBookABookById(@Valid Book book, BindingResult result, @PathVariable("idb") long idb, @PathVariable("idp") long idp) {
     	if (!result.hasErrors()) {
             try {

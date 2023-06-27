@@ -24,11 +24,6 @@ public class Book {
     @Pattern(regexp ="^[A-Z][a-zA-Z ]{0,39}$", message = "1.burtam jabut lielam, tikai latinu burti, max 40 simboli")
     private String title;
 
-    @ManyToMany
-    @JoinTable(name="book_author_table", joinColumns = @JoinColumn(name = "idp"), inverseJoinColumns = @JoinColumn(name = "idb"))
-    @ToString.Exclude
-    private Collection<Author> author;
-
     @Column(name="genre")
     @NotNull
     private BookGenre genre;
@@ -50,8 +45,12 @@ public class Book {
 
     @OneToMany(mappedBy = "book")
     private Collection<Exemplar> exemplars;
+    
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
 
-    public Book(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) {
+    public Book(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) {
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -59,4 +58,6 @@ public class Book {
         this.writingYear = writingYear;
         this.quantity = quantity;
     }
+
+    
 }

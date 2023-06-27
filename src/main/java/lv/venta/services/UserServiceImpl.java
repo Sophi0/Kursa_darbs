@@ -1,4 +1,4 @@
-package services;
+package lv.venta.services;
 
 import lv.venta.models.*;
 import lv.venta.repos.*;
@@ -23,13 +23,13 @@ public class UserServiceImpl implements UserService {
     private IUserRepo userRepo;
 
     @Override
-    public ArrayList<Book> selectAllBooksByAuthorName(String surname) {
-        return bookRepo.findAllByAuthorSurname(surname);
+    public ArrayList<Book> selectAllBooksByAuthorSurname(String surname) {
+        return bookRepo.findByAuthorSurname(surname);
     }
 
     @Override
     public ArrayList<Book> selectAllBooksByBookTitle(String title) {
-        return bookRepo.findAllByTitle(title);
+        return bookRepo.findByTitle(title);
     }
 
     @Override

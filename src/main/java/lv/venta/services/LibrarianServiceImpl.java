@@ -1,10 +1,11 @@
-package services;
+package lv.venta.services;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import org.springframework.stereotype.Service;
 import lv.venta.models.*;
 import lv.venta.repos.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 
@@ -26,16 +27,17 @@ public class LibrarianServiceImpl implements LibrarianService {
     private IExemplarReturnRepo exemplarReturnRepo;
 
     @Override
-    public void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
+    public void insertNewBook(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
         //TODO if not working -> findByTitle() and others functions are the reason
-        if(!(bookRepo.findByTitle(title) && bookRepo.findByWritingYear(writingYear))){
-            Book book = new Book(title, author, genre, description, writingYear, quantity);
+        /*if(!(bookRepo.findByBookTitle(title) && bookRepo.findByWritingYear(writingYear))){
+          
+        } else throw new Exception("Book with this title and writingYear already exists");  */
+        	Book book = new Book(title, author, genre, description, writingYear, quantity);
             bookRepo.save(book);
             for(int i = 0; i < quantity; i++){
                 exemplarRepo.save(new Exemplar(book, false));
                 bookRepo.save(book);
             }
-        } else throw new Exception("Book with this title and writingYear already exists");
     }
     @Override
     public void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception {
@@ -111,7 +113,7 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
 
     @Override
-	public void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description,
+	public void updateBook(long id, String title, Author author, BookGenre genre, String description,
 			int writingYear, int quantity) throws Exception {
 		if(id > 0) {
 			if(bookRepo.existsById(id)) {

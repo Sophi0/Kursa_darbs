@@ -25,10 +25,10 @@ public class Author extends Person {
     @PastOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfDeath;
-
-    @ManyToMany(mappedBy="author")
+    
+    @OneToMany(mappedBy = "author")
     @ToString.Exclude
-	private Collection<Book> books;
+    private Collection<Book> books;
 
     public Author(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) {
         super(name, surname);

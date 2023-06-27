@@ -41,8 +41,8 @@ public class JavaKursaDarbsApplication {
 				usRepo.save(u4);
 				usRepo.save(u5);
 				
-				Book bk6 = new Book("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, "Hello", 1995, 10);
-				Book bk7 = new Book("Master i Margarita", new ArrayList(List.of(au2)), BookGenre.Romantic, "Hello", 1895, 20);
+				Book bk6 = new Book("Gore", au1, BookGenre.Classic, "Hello", 1995, 10);
+				Book bk7 = new Book("Master i Margarita", au2, BookGenre.Romantic, "Hello", 1895, 20);
 				bkRepo.save(bk6);
 				bkRepo.save(bk7);
 				
