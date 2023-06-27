@@ -2,12 +2,12 @@ package lv.venta.controllers;
 
 import jakarta.validation.Valid;
 import lv.venta.models.*;
+import lv.venta.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import services.LibrarianService;
 
 @Controller
 public class LibrarianController {

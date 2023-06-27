@@ -1,4 +1,4 @@
-package services;
+package lv.venta.services;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,16 +6,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import lv.venta.models.*;
+import org.springframework.stereotype.Service;
+
 //TODO check if trying to insert a new object who already exist
+@Service
 public interface LibrarianService {
     ArrayList<Book> allBooks();
     ArrayList<Exemplar> allExemplars();
     ArrayList<Author> allAuthors();
     ArrayList<User> allUsers();
 
-    void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
+    void insertNewBook(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
     Book retrieveBookById(long id) throws Exception;
-    void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
+    void updateBook(long id, String title, Author author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
     //TODO delete book by name, but if the same title -> exception
     void deleteBookById(long idb) throws Exception;
 

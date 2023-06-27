@@ -1,17 +1,16 @@
 package lv.venta;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import lv.venta.models.*;
 import lv.venta.repos.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {"lv.venta.controllers", "lv.venta.services", "lv.venta.repos", "lv.venta.models"})
 public class JavaKursaDarbsApplication {
 
 	public static void main(String[] args) {
@@ -40,8 +39,8 @@ public class JavaKursaDarbsApplication {
 				usRepo.save(u4);
 				usRepo.save(u5);
 				
-				Book bk6 = new Book("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, "Hello", 1995, 10);
-				Book bk7 = new Book("Master i Margarita", new ArrayList(List.of(au2)), BookGenre.Romantic, "Hello", 1895, 20);
+				Book bk6 = new Book("Gore ot uma", au1, BookGenre.Classic, "Hello", 1995, 10);
+				Book bk7 = new Book("Master i Margarita", au2, BookGenre.Romantic, "Hello", 1895, 20);
 				bkRepo.save(bk6);
 				bkRepo.save(bk7);
 				

@@ -1,13 +1,11 @@
-package services.impl;
+package lv.venta.services;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import org.springframework.stereotype.Service;
 import lv.venta.models.*;
 import lv.venta.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import services.LibrarianService;
 
 import java.time.LocalDate;
 
@@ -49,7 +47,7 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
 
     @Override
-    public void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
+    public void insertNewBook(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
         //TODO if not working -> findByTitle() and others functions are the reason
         if(!(bookRepo.findByTitle(title) && bookRepo.findByWritingYear(writingYear))){
             Book book = new Book(title, author, genre, description, writingYear, quantity);
@@ -162,7 +160,7 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
 
     @Override
-	public void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description,
+	public void updateBook(long id, String title, Author author, BookGenre genre, String description,
 			int writingYear, int quantity) throws Exception {
 		if(id > 0) {
 			if(bookRepo.existsById(id)) {
