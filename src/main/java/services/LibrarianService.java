@@ -13,7 +13,9 @@ public interface LibrarianService {
     ArrayList<Author> allAuthors();
 
     void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
+    Book retrieveById(long id) throws Exception;
     void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
+    //TODO delete book by name, but if the same title -> exception
     void deleteBookById(long idb) throws Exception;
 
     void deleteExemplarById(long idex) throws Exception;

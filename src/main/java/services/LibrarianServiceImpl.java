@@ -53,6 +53,16 @@ public class LibrarianServiceImpl implements LibrarianService {
             }
         } else throw new Exception("Book with this title and writingYear already exists");
     }
+
+    @Override
+    public Book retrieveById(long id) throws Exception {
+        if(id > 0){
+            if(bookRepo.existsById(id)){
+                return bookRepo.findByIdb(id);
+            } else throw new Exception("There is no product with this id");
+        } else throw new Exception("Invalid input id");
+    }
+
     @Override
     public void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception {
         //TODO if not working -> findByName() and others functions are the reason
