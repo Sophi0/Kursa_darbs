@@ -74,33 +74,66 @@ public class LibrarianController {
         }
     }
     //BOOK - ADD, UPDATE, DELETE (BOOK & EXEMPLAR)
-    @GetMapping("/librarian/add-book") //localhost:8080/librarian/add-book
+    /*@GetMapping("/librarian/add-book") //localhost:8080/librarian/add-book
     public String getAddNewBook(Model model){
         model.addAttribute("book", new Book());
-        return "add-book-page"; //TODO
+        return "librarian-add-book-page";
+    }*/
+    //EXPERIMENT
+    /*@GetMapping("/librarian/add-book")
+    public String getAddNewBook(Model model){
+        model.addAttribute("book", new Book());
+        model.addAttribute("authors", librarianService.allAuthors());
+        model.addAttribute("genres", BookGenre.values());
+        return "librarian-add-book-page";
     }
+
     @PostMapping("/librarian/add-book")
-    public String postAddProduct(@Valid Book book, BindingResult result) {
+    public String postAddNewBook(@Valid Book book, BindingResult result) {
         if(!result.hasErrors()){
             try {
-                librarianService.insertNewBook(book.getTitle(), book.getAuthor(), book.getGenre(), book.getDescription(), book.getWritingYear(), book.getQuantity());
-                return "redirect:/all-books-page";
+                Author authorTemp = librarianService.retrieveAuthorBySurname(book.getAuthor().getSurname());
+                librarianService.insertNewBook(book.getTitle(), authorTemp, book.getGenre(), book.getDescription(), book.getWritingYear(), book.getQuantity());
+                return "redirect:/librarian-all-books-page";
             } catch (Exception e){
                 return "redirect:/error";
             }
         } else {
-            return "add-book-page";
+            return "librarian-add-book-page";
+        }
+    }*/
+    @GetMapping("/librarian/add-book")
+    public String getAddNewBook(Model model) {
+        model.addAttribute("book", new Book());
+        model.addAttribute("authors", librarianService.allAuthors());
+        model.addAttribute("genres", BookGenre.values());
+        return "librarian-add-book-page";
+    }
+
+    @PostMapping("/librarian/add-book")
+    public String postAddNewBook(@Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
+            return "librarian-add-book-page";
+        }
+        try {
+            Author author = librarianService.retrieveAuthorById(book.getAuthor().getIdp());
+            librarianService.insertNewBook(book.getTitle(), author, book.getGenre(), book.getDescription(), book.getWritingYear(), book.getQuantity());
+            return "redirect:/librarian-all-books-page";
+        } catch (Exception e) {
+            return "redirect:/error";
         }
     }
+
+
 
     @GetMapping("/librarian/update-book/{id}") //localhost:8080/update-book/1
     public String getUpdateBook(@PathVariable("id") long id, Model model){
         try {
             model.addAttribute("book", librarianService.retrieveBookById(id));
-            return "update-book-page"; //TODO
+            return "librarian-update-book-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     @PostMapping("/librarian/update-book/{id}")
@@ -108,12 +141,12 @@ public class LibrarianController {
         if(!result.hasErrors()){
             try {
                 librarianService.updateBook(id, book.getTitle(), book.getAuthor(), book.getGenre(), book.getDescription(), book.getWritingYear(), book.getQuantity());
-                return "redirect:/all-books-page/" + id; //TODO
+                return "redirect:/librarian-all-books-page/" + id;
             } catch (Exception e){
-                return "redirect:/error"; //TODO
+                return "redirect:/error";
             }
         } else {
-            return "update-book-page"; //TODO
+            return "librarian-update-book-page";
         }
     }
     @GetMapping("/librarian/delete-book/{id}") //localhost:8080/librarian/delete-book/1

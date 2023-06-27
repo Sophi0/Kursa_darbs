@@ -60,8 +60,8 @@ public class LibrarianServiceImpl implements LibrarianService {
     @Override
     public void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception {
         //TODO if not working -> findByName() and others functions are the reason
-        if(!(authorRepo.findByName(name) && authorRepo.findBySurname(surname) &&
-                authorRepo.findByDateOfBirth(dateOfBirth) && authorRepo.findByDateOfDeath(dateOfDeath))){
+        if(!(authorRepo.findByName(name) && authorRepo.findByDateOfBirth(dateOfBirth) && authorRepo.findByDateOfDeath(dateOfDeath)
+            && authorRepo.findBySurname(surname) != null)){
             authorRepo.save(new Author(name, surname, dateOfBirth, dateOfDeath));
         } else throw new Exception("Book with this title and writingYear already exists");
     }
@@ -88,7 +88,6 @@ public class LibrarianServiceImpl implements LibrarianService {
             } else throw new Exception("There is no user with this id");
         } else throw new Exception("Invalid input id");
     }
-
     @Override
     public Author retrieveAuthorById(long id) throws Exception {
         if(id > 0){
@@ -97,6 +96,15 @@ public class LibrarianServiceImpl implements LibrarianService {
             } else throw new Exception("There is no author with this id");
         } else throw new Exception("Invalid input id");
     }
+    @Override
+    public Author retrieveAuthorBySurname(String surname) throws Exception {
+        if(surname.length() > 0){
+            if(authorRepo.existsBySurname(surname)){
+                return authorRepo.findBySurname(surname);
+            } else throw new Exception("There is no author with this surname");
+        } else throw new Exception("Invalid input surname");
+    }
+
     //UPDATE
     @Override
     public void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception {

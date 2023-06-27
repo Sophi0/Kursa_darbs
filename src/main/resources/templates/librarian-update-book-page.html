@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add product</title>
+    <title>Update book</title>
 </head>
 <style>
     table {
@@ -21,30 +21,40 @@
     }
 </style>
 <body>
-<form action="#" th:action="@{/add-product}" th:object="${product}" method="post">
+<form action="#" th:action="@{/librarian/update-book/__${id}__}" th:object="${book}" method="post">
     <table>
         <tr>
-            <td>Product title:</td>
+            <td>Book title:</td>
             <td><input type="text" th:field="*{title}"/></td>
             <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> </td>
         </tr>
         <tr>
-            <td>Product description:</td>
+            <td>Book author:</td>
+            <td><input type="text" th:field="*{author}"/></td>
+            <td th:if="${#fields.hasErrors('author')}" th:errors="*{author}"> </td>
+        </tr>
+        <tr>
+            <td>Book genre:</td>
+            <td><input type="text" th:field="*{genre}"/></td>
+            <td th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"> </td>
+        </tr>
+        <tr>
+            <td>Book description:</td>
             <td><input type="text" th:field="*{description}"/></td>
             <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> </td>
         </tr>
         <tr>
-            <td>Product price:</td>
-            <td><input type="text" th:field="*{price}"/></td>
-            <td th:if="${#fields.hasErrors('price')}" th:errors="*{price}"> </td>
+            <td>Book writing year:</td>
+            <td><input type="text" th:field="*{writingYear}"/></td>
+            <td th:if="${#fields.hasErrors('writingYear')}" th:errors="*{writingYear}"> </td>
         </tr>
         <tr>
-            <td>Product quantity:</td>
+            <td>Book quantity (how many exemplars):</td>
             <td><input type="text" th:field="*{quantity}"/></td>
             <td th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"> </td>
         </tr>
         <tr>
-            <td><button type="submit">Add product</button></td>
+            <td><button type="submit">Update</button></td>
         </tr>
     </table>
 </form>

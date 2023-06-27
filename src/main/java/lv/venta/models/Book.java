@@ -20,7 +20,7 @@ public class Book {
     private long idb;
 
     @Column(name="title")
-    @Pattern(regexp ="[A-Z][\\w\\W]{0,59}")
+    @Pattern(regexp ="[A-Z][\\w\\W]{0,59}", message = "1st letter must be uppercase, max 60 symbols")
     private String title;
 
     @ManyToOne
@@ -32,7 +32,7 @@ public class Book {
     private BookGenre genre;
 
     @Column(name="description")
-    @Pattern(regexp ="[A-Z][\\w\\W]{0,59}")
+    @Pattern(regexp ="[A-Z][\\w\\W]{0,99}", message = "1st letter must be uppercase, max 100 symbols")
     private String description;
 
     @Column(name="writingYear")

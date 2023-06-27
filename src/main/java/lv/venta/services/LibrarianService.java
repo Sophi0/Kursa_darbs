@@ -30,6 +30,7 @@ public interface LibrarianService {
 
     void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
     Author retrieveAuthorById(long id) throws Exception;
+    Author retrieveAuthorBySurname(String surname) throws Exception;
     void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
     void deleteAuthor(long authorId) throws Exception;
     void deleteAuthor(String name, String surname);
