@@ -37,8 +37,4 @@ public class User extends Person {
 		this.email = email;
 		this.username = username;
 	}
-
-	//TODO bookABook()
-	//TODO ExtendExpiringDate()
-
 }

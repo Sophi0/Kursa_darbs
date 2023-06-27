@@ -60,7 +60,7 @@ public class LibrarianController {
     @GetMapping("/librarian/all-users") //localhost:8080/librarian/all-users
     public String getAllUsers(Model model){
         model.addAttribute("user", librarianService.allUsers());
-        return "all-users-page"; //TODO
+        return "librarian-all-users-page";
     }
     @GetMapping("/librarian/all-users/{id}") //localhost:8080/librarian/all-users/2
     public String getUserById(@PathVariable("id") long id, Model model){
