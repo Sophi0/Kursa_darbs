@@ -1,9 +1,7 @@
 package lv.venta.services;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import lv.venta.models.*;
 import org.springframework.stereotype.Service;

@@ -23,7 +23,7 @@ public class LibrarianController {
     @GetMapping("/librarian/all-books") //localhost:8080/librarian/all-books
     public String getAllBooks(Model model){
         model.addAttribute("book", librarianService.allBooks());
-        return "all-books-page"; //TODO
+        return "librarian-all-books-page";
     }
     @GetMapping("/librarian/all-books/{id}") //localhost:8080/librarian/all-books/2
     public String getBookById(@PathVariable("id") long id, Model model){
