@@ -17,7 +17,7 @@ public class LibrarianController {
     @GetMapping("/error") //localhost:8080/error
     public String getError(Model model){
         model.addAttribute("packetError", "Error");
-        return "error-page"; //TODO
+        return "error-page";
     }
     //PAGES WITH ALL
     @GetMapping("/librarian/all-books") //localhost:8080/librarian/all-books
@@ -30,10 +30,10 @@ public class LibrarianController {
         try {
             Book book = librarianService.retrieveBookById(id);
             model.addAttribute("book", book);
-            return "one-book-page"; //TODO
+            return "librarian-one-book-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     @GetMapping("/librarian/all-exemplars") //localhost:8080/librarian/all-exemplars
