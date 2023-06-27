@@ -67,10 +67,10 @@ public class LibrarianController {
         try {
             User user = librarianService.retrieveUserById(id);
             model.addAttribute("user", user);
-            return "one-user-page"; //TODO
+            return "librarian-one-user-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     //BOOK - ADD, UPDATE, DELETE (BOOK & EXEMPLAR)
