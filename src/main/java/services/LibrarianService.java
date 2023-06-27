@@ -2,11 +2,16 @@ package services;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import lv.venta.models.*;
 
 public interface LibrarianService {
+    ArrayList<Book> allBooks();
+    ArrayList<Exemplar> allExemplars();
+    ArrayList<Author> allAuthors();
+
     void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
     void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
     void deleteBookById(long idb) throws Exception;

@@ -1,6 +1,7 @@
 package services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.stereotype.Service;
 import lv.venta.models.*;
@@ -24,6 +25,21 @@ public class LibrarianServiceImpl implements LibrarianService {
     private IExemplarIssueRepo exemplarIssueRepo;
     @Autowired
     private IExemplarReturnRepo exemplarReturnRepo;
+
+    @Override
+    public ArrayList<Book> allBooks() {
+        return (ArrayList<Book>) bookRepo.findAll();
+    }
+
+    @Override
+    public ArrayList<Exemplar> allExemplars() {
+        return (ArrayList<Exemplar>) exemplarRepo.findAll();
+    }
+
+    @Override
+    public ArrayList<Author> allAuthors() {
+        return (ArrayList<Author>) authorRepo.findAll();
+    }
 
     @Override
     public void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
