@@ -39,7 +39,7 @@ public class LibrarianController {
     @GetMapping("/librarian/all-exemplars") //localhost:8080/librarian/all-exemplars
     public String getAllExemplars(Model model){
         model.addAttribute("exemplar", librarianService.allExemplars());
-        return "all-exemplars-page"; //TODO
+        return "librarian-all-exemplars-page";
     }
     @GetMapping("/librarian/all-authors") //localhost:8080/librarian/all-authors
     public String getAllAuthors(Model model){
