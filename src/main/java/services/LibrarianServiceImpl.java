@@ -42,6 +42,11 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
 
     @Override
+    public ArrayList<User> allUsers() {
+        return (ArrayList<User>) userRepo.findAll();
+    }
+
+    @Override
     public void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
         //TODO if not working -> findByTitle() and others functions are the reason
         if(!(bookRepo.findByTitle(title) && bookRepo.findByWritingYear(writingYear))){
@@ -55,11 +60,19 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
 
     @Override
-    public Book retrieveById(long id) throws Exception {
+    public Book retrieveBookById(long id) throws Exception {
         if(id > 0){
             if(bookRepo.existsById(id)){
                 return bookRepo.findByIdb(id);
-            } else throw new Exception("There is no product with this id");
+            } else throw new Exception("There is no book with this id");
+        } else throw new Exception("Invalid input id");
+    }
+    @Override
+    public User retrieveUserById(long id) throws Exception {
+        if(id > 0){
+            if(userRepo.existsById(id)){
+                return userRepo.findByIdp(id);
+            } else throw new Exception("There is no user with this id");
         } else throw new Exception("Invalid input id");
     }
 
@@ -71,6 +84,16 @@ public class LibrarianServiceImpl implements LibrarianService {
             authorRepo.save(new Author(name, surname, dateOfBirth, dateOfDeath));
         } else throw new Exception("Book with this title and writingYear already exists");
     }
+
+    @Override
+    public Author retrieveAuthorById(long id) throws Exception {
+        if(id > 0){
+            if(authorRepo.existsById(id)){
+                return authorRepo.findByIdp(id);
+            } else throw new Exception("There is no author with this id");
+        } else throw new Exception("Invalid input id");
+    }
+
     @Override
     public void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception {
         if(authorId > 0){

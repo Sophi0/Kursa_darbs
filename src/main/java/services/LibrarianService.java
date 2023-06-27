@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import lv.venta.models.*;
-
+//TODO check if trying to insert a new object who already exist
 public interface LibrarianService {
     ArrayList<Book> allBooks();
     ArrayList<Exemplar> allExemplars();
     ArrayList<Author> allAuthors();
+    ArrayList<User> allUsers();
 
     void insertNewBook(String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
-    Book retrieveById(long id) throws Exception;
+    Book retrieveBookById(long id) throws Exception;
     void updateBook(long id, String title, Collection<Author> author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
     //TODO delete book by name, but if the same title -> exception
     void deleteBookById(long idb) throws Exception;
@@ -21,11 +22,13 @@ public interface LibrarianService {
     void deleteExemplarById(long idex) throws Exception;
 
     void insertNewUser(String name, String surname, String email, String username) throws Exception;
+    User retrieveUserById(long id) throws Exception;
     void updateUser(long id, String name, String surname, String email, String username) throws Exception;
     void deleteUserById(long id) throws Exception;
     void deleteUserByUsername(String username) throws Exception;
 
     void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
+    Author retrieveAuthorById(long id) throws Exception;
     void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
     void deleteAuthor(long authorId) throws Exception;
     void deleteAuthor(String name, String surname);
