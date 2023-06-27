@@ -23,6 +23,15 @@
 <body>
 <h1>All books</h1>
 <table>
+    <tr>
+        <th>Book id</th>
+        <th>Title</th>
+        <th>Author name and surname</th>
+        <th>Genre</th>
+        <th>Description</th>
+        <th>Writing year</th>
+        <th>Quantity</th>
+    </tr>
     <th:block th:each="temp : ${book}">
         <tr>
             <td th:text="${temp.getIdb()}"></td>
