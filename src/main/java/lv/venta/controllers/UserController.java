@@ -30,7 +30,7 @@ public class UserController {
 		}
 	}
         
-    @GetMapping(value = "/user/showAll/book/{title}")	//localhost:8080/user/showAll/book/{title}
+    @GetMapping(value = "/user/showAll/titleOfBook/{title}")	//localhost:8080/user/showAll/titleOfBook/{title}
 	public String getAllBooksByTitle(Model model, @PathVariable("title") String title) {
 		try {
 			model.addAttribute("book", userService.selectAllBooksByBookTitle(title));
@@ -48,7 +48,7 @@ public class UserController {
 		return "all-book-page";
 	}
     
-    @GetMapping(value = "/user/showAll/userBook/{id}")	//localhost:8080/user/showAll/userBook/{id}
+    @GetMapping(value = "/user/showAll/userBooks/{id}")	//localhost:8080/user/showAll/userBooks/{id}
 	public String getAllUserBooks(Model model, @PathVariable("id") long idp) {
 		try {
 			model.addAttribute("book", userService.selectAllUserBooks(idp));
