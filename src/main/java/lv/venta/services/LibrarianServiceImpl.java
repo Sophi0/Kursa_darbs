@@ -119,8 +119,8 @@ public class LibrarianServiceImpl implements LibrarianService {
     public void updateBook(long id, String title, Author author, BookGenre genre, String description,
                            int writingYear, int quantity) throws Exception {
         if(id > 0) {
-            if(bookRepo.existsById(id)) {
-                Book temp = bookRepo.findById(id).get();
+            if(bookRepo.existsByIdb(id)) {
+                Book temp = bookRepo.findByIdb(id);
                 temp.setTitle(title);
                 temp.setAuthor(author);
                 temp.setGenre(genre);

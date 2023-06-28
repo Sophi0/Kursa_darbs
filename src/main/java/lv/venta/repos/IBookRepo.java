@@ -18,4 +18,6 @@ public interface IBookRepo extends CrudRepository<Book, Long>{
     boolean existsByTitle(String title);
 
     boolean existsByWritingYear(int writingYear);
+
+    boolean existsByIdb(long id);
 }

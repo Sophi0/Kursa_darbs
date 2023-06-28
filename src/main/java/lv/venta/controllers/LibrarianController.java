@@ -103,10 +103,12 @@ public class LibrarianController {
         }
     }
 
-    @GetMapping("/librarian/update-book/{id}") //localhost:8080/update-book/1
+    @GetMapping("/librarian/update-book/{id}") //localhost:8080/librarian/update-book/1
     public String getUpdateBook(@PathVariable("id") long id, Model model){
         try {
             model.addAttribute("book", librarianService.retrieveBookById(id));
+            model.addAttribute("authors", librarianService.allAuthors());
+            model.addAttribute("genres", BookGenre.values());
             return "librarian-update-book-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
@@ -114,11 +116,20 @@ public class LibrarianController {
         }
     }
     @PostMapping("/librarian/update-book/{id}")
-    public String postUpdateBook(@PathVariable("id") long id, @Valid Book book, BindingResult result){
+    public String postUpdateBook(@PathVariable("id") long id, @Valid Book book, BindingResult result, @RequestParam("authorId") Long authorId){
         if(!result.hasErrors()){
             try {
-                librarianService.updateBook(id, book.getTitle(), book.getAuthor(), book.getGenre(), book.getDescription(), book.getWritingYear(), book.getQuantity());
-                return "redirect:/librarian-all-books-page/" + id;
+                Author author = librarianService.retrieveAuthorById(authorId);
+                librarianService.updateBook(
+                        id,
+                        book.getTitle(),
+                        author,
+                        book.getGenre(),
+                        book.getDescription(),
+                        book.getWritingYear(),
+                        book.getQuantity()
+                );
+                return "redirect:/librarian/all-books/" + id;
             } catch (Exception e){
                 return "redirect:/error";
             }
