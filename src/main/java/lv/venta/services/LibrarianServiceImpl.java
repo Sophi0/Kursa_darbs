@@ -47,8 +47,7 @@ public class LibrarianServiceImpl implements LibrarianService {
     //INSERT FUNCTIONS
     @Override
     public void insertNewBook(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) throws Exception {
-        //TODO if not working -> findByTitle() and others functions are the reason
-        if(!(bookRepo.findByTitle(title) && bookRepo.findByWritingYear(writingYear))){
+        if(!(bookRepo.existsByTitle(title) && bookRepo.existsByWritingYear(writingYear))){
             Book book = new Book(title, author, genre, description, writingYear, quantity);
             bookRepo.save(book);
             for(int i = 0; i < quantity; i++){
@@ -59,15 +58,14 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
     @Override
     public void insertNewAuthor(String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception {
-        //TODO if not working -> findByName() and others functions are the reason
-        if(!(authorRepo.findByName(name) && authorRepo.findByDateOfBirth(dateOfBirth) && authorRepo.findByDateOfDeath(dateOfDeath)
-            && authorRepo.findBySurname(surname) != null)){
+        if(!(authorRepo.existsByName(name) && authorRepo.existsByDateOfBirth(dateOfBirth)
+                && authorRepo.existsByDateOfDeath(dateOfDeath) && authorRepo.existsBySurname(surname))){
             authorRepo.save(new Author(name, surname, dateOfBirth, dateOfDeath));
         } else throw new Exception("Book with this title and writingYear already exists");
     }
     @Override
     public void insertNewUser(String name, String surname, String email, String username) throws Exception {
-        if(!(userRepo.findByUsername(username) && userRepo.findByEmail(email))){
+        if(!(userRepo.existsByUsername(username) && userRepo.existsByEmail(email))){
             userRepo.save(new User(name, surname, email, username));
         } else throw new Exception("User with this username and email already exists");
     }
