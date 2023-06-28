@@ -13,9 +13,9 @@ public interface IBookRepo extends CrudRepository<Book, Long>{
 
     ArrayList<Book> findAllByTitle(String title);
 
-    boolean findByTitle(String title);
-
-    boolean findByWritingYear(int writingYear);
-
 	Book findByIdb(long idb);
+
+    boolean existsByTitle(String title);
+
+    boolean existsByWritingYear(int writingYear);
 }

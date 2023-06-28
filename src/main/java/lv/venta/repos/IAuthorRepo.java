@@ -7,14 +7,7 @@ import lv.venta.models.Author;
 import java.time.LocalDate;
 
 public interface IAuthorRepo extends CrudRepository<Author, Long>{
-
-    boolean findByName(String name);
-
     Author findBySurname(String surname);
-
-    boolean findByDateOfBirth(LocalDate dateOfBirth);
-
-    boolean findByDateOfDeath(LocalDate dateOfDeath);
 
     Author findByIdp(long authorId);
 
@@ -23,4 +16,10 @@ public interface IAuthorRepo extends CrudRepository<Author, Long>{
     void deleteByNameAndSurname(String name, String surname);
 
     boolean existsBySurname(String surname);
+
+    boolean existsByName(String name);
+
+    boolean existsByDateOfBirth(LocalDate dateOfBirth);
+
+    boolean existsByDateOfDeath(LocalDate dateOfDeath);
 }
