@@ -54,6 +54,9 @@ public class UserController {
 	}
     
     //WORKING
+	//Message from Rebeka - here we need to use another html view file (all-exemplars - for example)
+	//because users books are exemplars, not books -> the program does not understand, what is genre and other parameters
+	//here I see comment 'WORKING', but when I run it, it does not work
     @GetMapping(value = "/user/showAll/userBooks/{id}")	//localhost:8080/user/showAll/userBooks/{id}
 	public String getAllUserBooks(Model model, @PathVariable("id") long idp) {
 		try {
@@ -70,7 +73,7 @@ public class UserController {
     @GetMapping(value = "/user/showAll/fines/{id}")	//localhost:8080/user/showAll/fines/{id}
     public String getAllFinesByUserId(Model model, @PathVariable("id") long idp) {
     	try {
-    		model.addAttribute("book", userService.finesForAllBooks(idp));
+    		model.addAttribute("fines", userService.finesForAllBooks(idp)); //Rebeka -changed "book" to "fines"
 			return "all-fines-book-page";
     	}
     	catch (Exception e) {
