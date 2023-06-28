@@ -243,12 +243,11 @@ public class LibrarianController {
             return "librarian-add-author-page";
         }
     }
-
     @GetMapping("/librarian/update-author/{id}") //localhost:8080/update-author/1
     public String getUpdateAuthor(@PathVariable("id") long id, Model model){
         try {
             model.addAttribute("author", librarianService.retrieveAuthorById(id));
-            return "librarian-update-author-page"; //TODO
+            return "librarian-update-author-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
@@ -259,12 +258,12 @@ public class LibrarianController {
         if(!result.hasErrors()){
             try {
                 librarianService.updateAuthor(id, author.getName(), author.getSurname(), author.getDateOfBirth(), author.getDateOfDeath());
-                return "redirect:/librarian/all-authors-page/" + id; //TODO
+                return "redirect:/librarian/all-authors/" + id;
             } catch (Exception e){
                 return "redirect:/error";
             }
         } else {
-            return "librarian-update-author-page"; //TODO
+            return "librarian-update-author-page";
         }
     }
     @GetMapping("/librarian/delete-author/{id}") //localhost:8080/librarian/delete-author/1
