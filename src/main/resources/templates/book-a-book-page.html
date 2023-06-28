@@ -30,10 +30,11 @@
         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
         
         <label for="author">Author:</label>
-        <input type="text" id="getAuthor().getName()" th:field="*{getAuthor().getName()}" required/>
-        <span th:if="${#fields.hasErrors('getAuthor().getName()')}" th:errors="*{getAuthor().getName()}"></span>
-        <input type="text" id="getAuthor().getSurname()" th:field="*{getAuthor().getSurname()}" required/>
-        <span th:if="${#fields.hasErrors('getAuthor().getSurname()')}" th:errors="*{getAuthor().getSurname()}"></span>
+        <input type="text" id="author.name" th:field="*{author.name}" required/>
+        <span th:if="${#fields.hasErrors('author.name')}" th:errors="*{author.name}"></span>
+        
+        <input type="text" id="author.surname" th:field="*{author.surname}" required/>
+        <span th:if="${#fields.hasErrors('author.surname')}" th:errors="*{author.surname}"></span>
         
         <label for="writingYear">Publication Year:</label>
         <input type="text" id="writingYear" th:field="*{writingYear}" required/>

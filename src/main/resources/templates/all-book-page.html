@@ -28,6 +28,9 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Publication Year</th>
+                <th>Book Genre</th>
+                <th>Description</th>
+                <th>Quantity</th>
              
             </tr>
         </thead>
@@ -36,6 +39,9 @@
                 <td th:text="${temp.title}"></td>
                 <td th:text="${temp.getAuthor().getName()} + ' ' + ${temp.getAuthor().getSurname()}"></td>
                 <td th:text="${temp.writingYear}"></td>
+                <td th:text="${temp.genre}"></td>
+                <td th:text="${temp.description}"></td>
+                <td th:text="${temp.quantity}"></td>
             </tr>
         </tbody>
     </table>

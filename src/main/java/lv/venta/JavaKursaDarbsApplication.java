@@ -26,8 +26,8 @@ public class JavaKursaDarbsApplication {
 			@Override
 			public void run(String... args) throws Exception {
 				
-				Author au1 = new Author("Vasiliy", "Uljanov", LocalDate.of(1957, 5, 20), LocalDate.of(2010, 4, 10));
-				Author au2 = new Author("Elena", "Letuchaya", LocalDate.of(1949, 6, 3), LocalDate.of(2000, 3, 23));
+				Author au1 = new Author("George", "Orwell", LocalDate.of(1957, 5, 20), LocalDate.of(2010, 4, 10));
+				Author au2 = new Author("John", "Tolkien", LocalDate.of(1949, 6, 3), LocalDate.of(2000, 3, 23));
 				auRepo.save(au1);
 				auRepo.save(au2);
 				
@@ -41,8 +41,8 @@ public class JavaKursaDarbsApplication {
 				usRepo.save(u4);
 				usRepo.save(u5);
 				
-				Book bk6 = new Book("Gore", au1, BookGenre.Classic, "Hello", 1995, 10);
-				Book bk7 = new Book("Master i Margarita", au2, BookGenre.Romantic, "Hello", 1895, 20);
+				Book bk6 = new Book("The Lord of the Rings", au1, BookGenre.Classic, "Great book", 1956, 10);
+				Book bk7 = new Book("Harry Potter", au2, BookGenre.Romantic, "Interesting plot", 1991, 20);
 				bkRepo.save(bk6);
 				bkRepo.save(bk7);
 				
