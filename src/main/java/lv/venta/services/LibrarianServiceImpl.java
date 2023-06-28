@@ -4,6 +4,8 @@ import lv.venta.models.*;
 import lv.venta.repos.*;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -224,15 +226,35 @@ public class LibrarianServiceImpl implements LibrarianService {
 
     //OTHER FUNCTIONS
     @Override
+    @Transactional
     public void deleteUserById(long id) throws Exception {
         if(id > 0){
+            for(ExemplarIssue issue : exemplarIssueRepo.findAllByUserIdp(id)){
+                issue.setUser(null);
+                exemplarIssueRepo.save(issue);
+            }
+            for(ExemplarReturn exReturn : exemplarReturnRepo.findAllByUserIdp(id)){
+                exReturn.setUser(null);
+                exemplarReturnRepo.save(exReturn);
+            }
             userRepo.deleteByIdp(id);
         } else throw new Exception("Incorrect id");
     }
     @Override
+    @Transactional
     public void deleteUserByUsername(String username) throws Exception {
-        if(!(userRepo.deleteByUsername(username)))
-            throw new Exception("Incorrect username");
+        if(userRepo.existsByUsername(username)){
+            User user = userRepo.findByUsername(username);
+            for(ExemplarIssue issue : exemplarIssueRepo.findAllByUserIdp(user.getIdp())){
+                issue.setUser(null);
+                exemplarIssueRepo.save(issue);
+            }
+            for(ExemplarReturn exReturn : exemplarReturnRepo.findAllByUserIdp(user.getIdp())){
+                exReturn.setUser(null);
+                exemplarReturnRepo.save(exReturn);
+            }
+            userRepo.deleteByIdp(user.getIdp());
+        } else throw new Exception("Incorrect username");
     }
     @Override
     public void giveBook(long userId, long librarianId, long exemplarId) throws Exception {

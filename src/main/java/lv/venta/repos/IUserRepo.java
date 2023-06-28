@@ -13,10 +13,9 @@ public interface IUserRepo extends CrudRepository<User, Long>{
 
     void deleteByIdp(long id);
 
-    boolean deleteByUsername(String username);
-
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
 
+    User findByUsername(String username);
 }

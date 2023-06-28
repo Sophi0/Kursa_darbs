@@ -10,4 +10,6 @@ public interface IExemplarReturnRepo extends CrudRepository<ExemplarReturn, Long
     ExemplarReturn findByExemplarIdex(long idex);
 
     ArrayList<ExemplarReturn> findAllByExemplarIdex(long idex);
+
+    ArrayList<ExemplarReturn> findAllByUserIdp(long id);
 }

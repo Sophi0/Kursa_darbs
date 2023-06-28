@@ -205,18 +205,18 @@ public class LibrarianController {
     public String getDeleteUserById(@PathVariable("id") long id, Model model){
         try {
             librarianService.deleteUserById(id);
-            model.addAttribute("book", librarianService.allBooks());
-            return "librarian-all-books-page";
+            model.addAttribute("user", librarianService.allUsers());
+            return "librarian-all-users-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
         }
     }
-    @GetMapping("/librarian/delete-user/username/{username}") //localhost:8080/librarian/delete-exemplar/username/{username}
+    @GetMapping("/librarian/delete-user/username/{username}") //localhost:8080/librarian/delete-user/username/{username}
     public String getDeleteUserByUsername(@PathVariable("username") String username, Model model){
         try {
             librarianService.deleteUserByUsername(username);
-            model.addAttribute("username", librarianService.allUsers());
+            model.addAttribute("user", librarianService.allUsers());
             return "librarian-all-users-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
