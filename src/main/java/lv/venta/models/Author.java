@@ -17,14 +17,14 @@ public class Author extends Person {
     @Column(name="dateOfBirth")
     @NotNull
     @Past
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
 
     @Column(name="dateOfDeath")
     @NotNull
     @PastOrPresent
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dateOfDeath;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dateOfDeath;
 
     @OneToMany(mappedBy = "author")
     @ToString.Exclude
