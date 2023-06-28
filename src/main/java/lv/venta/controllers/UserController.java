@@ -79,7 +79,7 @@ public class UserController {
 		}
     }
     
-    //NOT WORKING
+    
     @GetMapping(value = "/user/bookAbook/{id}/{idp}")	//localhost:8080/user/bookAbook/{id}/{id}
     public String getBookABookById(@PathVariable("id") long idb, @PathVariable("id") long idp, Model model) {
     	model.addAttribute("book", new Book());
@@ -87,12 +87,13 @@ public class UserController {
 		return "book-a-book-page";
     }
     
-    //NOT WORKING
+    
     @PostMapping("/user/bookAbook/{id}/{idp}")
     public String postBookABookById(@PathVariable("id") long idb, @PathVariable("id") long idp, @Valid Book book, BindingResult result) {
     	if (!result.hasErrors()) {
             try {
             	userService.bookBook(idb, idp);
+            	//NOT WORKING
                 return "redirect:/user/showAll/book/" + idb + "/" + idp;
             } catch (Exception e) {
                 return "redirect:/error-page";
