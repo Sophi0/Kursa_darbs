@@ -74,57 +74,34 @@ public class LibrarianController {
         }
     }
     //BOOK - ADD, UPDATE, DELETE (BOOK & EXEMPLAR)
-    /*@GetMapping("/librarian/add-book") //localhost:8080/librarian/add-book
-    public String getAddNewBook(Model model){
-        model.addAttribute("book", new Book());
-        return "librarian-add-book-page";
-    }*/
-    //EXPERIMENT
-    /*@GetMapping("/librarian/add-book")
-    public String getAddNewBook(Model model){
-        model.addAttribute("book", new Book());
-        model.addAttribute("authors", librarianService.allAuthors());
-        model.addAttribute("genres", BookGenre.values());
-        return "librarian-add-book-page";
-    }
-
-    @PostMapping("/librarian/add-book")
-    public String postAddNewBook(@Valid Book book, BindingResult result) {
-        if(!result.hasErrors()){
-            try {
-                Author authorTemp = librarianService.retrieveAuthorBySurname(book.getAuthor().getSurname());
-                librarianService.insertNewBook(book.getTitle(), authorTemp, book.getGenre(), book.getDescription(), book.getWritingYear(), book.getQuantity());
-                return "redirect:/librarian-all-books-page";
-            } catch (Exception e){
-                return "redirect:/error";
-            }
-        } else {
-            return "librarian-add-book-page";
-        }
-    }*/
-    @GetMapping("/librarian/add-book")
+    @GetMapping("/librarian/add-book") //localhost:8080/librarian/add-book
     public String getAddNewBook(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("authors", librarianService.allAuthors());
         model.addAttribute("genres", BookGenre.values());
         return "librarian-add-book-page";
     }
-
     @PostMapping("/librarian/add-book")
-    public String postAddNewBook(@Valid Book book, BindingResult result) {
-        if (result.hasErrors()) {
+    public String postAddNewBook(@Valid Book book, BindingResult result, @RequestParam("authorId") Long authorId) {
+        if (!result.hasErrors()) {
+            try {
+                Author author = librarianService.retrieveAuthorById(authorId);
+                librarianService.insertNewBook(
+                        book.getTitle(),
+                        author,
+                        book.getGenre(),
+                        book.getDescription(),
+                        book.getWritingYear(),
+                        book.getQuantity()
+                );
+                return "redirect:/librarian/all-books";
+            } catch (Exception e) {
+                return "redirect:/error";
+            }
+        } else {
             return "librarian-add-book-page";
         }
-        try {
-            Author author = librarianService.retrieveAuthorById(book.getAuthor().getIdp());
-            librarianService.insertNewBook(book.getTitle(), author, book.getGenre(), book.getDescription(), book.getWritingYear(), book.getQuantity());
-            return "redirect:/librarian-all-books-page";
-        } catch (Exception e) {
-            return "redirect:/error";
-        }
     }
-
-
 
     @GetMapping("/librarian/update-book/{id}") //localhost:8080/update-book/1
     public String getUpdateBook(@PathVariable("id") long id, Model model){

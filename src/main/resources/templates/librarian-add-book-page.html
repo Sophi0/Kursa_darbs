@@ -28,39 +28,15 @@
             <td><input type="text" th:field="*{title}"/></td>
             <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> </td>
         </tr>
-        <!--<tr>
-            <td>Book author:</td>
-            <td><input type="text" th:field="*{author}"/></td>
-            <td th:if="${#fields.hasErrors('author')}" th:errors="*{author}"> </td>
-        </tr>-->
-        <!--        EXPERIMENT-->
-        <!--<tr>
-            <td>Book author:</td>
-            <td>
-                <select th:field="*{author}">
-                    <option value="">Select an author</option>
-                    <option th:each="author : ${authors}" th:value="${author}" th:text="${author.name + ' ' + author.surname}"></option>
-                </select>
-            </td>
-            <td th:if="${#fields.hasErrors('author')}" th:errors="*{author}"> </td>
-        </tr>-->
         <tr>
             <td>Book author:</td>
             <td>
-                <select th:field="*{author.idp}">
-                    <option value="">Select an author</option>
+                <select name="authorId">
+                    <option value="">-- Select Author --</option>
                     <option th:each="author : ${authors}" th:value="${author.idp}" th:text="${author.name + ' ' + author.surname}"></option>
                 </select>
             </td>
-            <td th:if="${#fields.hasErrors('author.idp')}" th:errors="*{author.idp}"> </td>
         </tr>
-
-
-        <!--<tr>
-            <td>Book genre:</td>
-            <td><input type="text" th:field="*{genre}"/></td>
-            <td th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"> </td>
-        </tr>-->
         <tr>
             <td>Book genre:</td>
             <td>
