@@ -41,7 +41,7 @@
             <td>Book genre:</td>
             <td>
                 <select th:field="*{genre}">
-                    <option value="">Select a genre</option>
+                    <option value="">-- Select a genre --</option>
                     <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
                 </select>
             </td>
