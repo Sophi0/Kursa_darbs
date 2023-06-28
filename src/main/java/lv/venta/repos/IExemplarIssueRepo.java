@@ -12,4 +12,6 @@ public interface IExemplarIssueRepo extends CrudRepository<ExemplarIssue, Long>{
     ArrayList<ExemplarIssue> findAllByUserIdp(long userId);
 
     ExemplarIssue findByIdis(long exemplarIssueId);
+
+    ArrayList<ExemplarIssue> findAllByExemplarIdex(long idex);
 }

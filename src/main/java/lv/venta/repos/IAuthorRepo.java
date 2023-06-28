@@ -22,4 +22,6 @@ public interface IAuthorRepo extends CrudRepository<Author, Long>{
     boolean existsByDateOfBirth(LocalDate dateOfBirth);
 
     boolean existsByDateOfDeath(LocalDate dateOfDeath);
+
+    Author findByBooksIdb(long idb);
 }

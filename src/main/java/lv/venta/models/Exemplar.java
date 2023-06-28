@@ -23,8 +23,11 @@ public class Exemplar {
     @JoinColumn(name = "idb")
     private Book book;
 
-    @OneToOne(mappedBy = "exemplar")
+    @OneToOne(mappedBy = "exemplar", cascade = CascadeType.REMOVE)
     private ExemplarIssue exemplarIssue;
+
+    @OneToOne(mappedBy = "exemplar", cascade = CascadeType.REMOVE)
+    private ExemplarReturn exemplarReturn;
 
     public Exemplar(Book book, boolean isIssued) {
         this.book = book;

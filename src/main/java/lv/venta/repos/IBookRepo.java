@@ -20,4 +20,7 @@ public interface IBookRepo extends CrudRepository<Book, Long>{
     boolean existsByWritingYear(int writingYear);
 
     boolean existsByIdb(long id);
+
+    void deleteByIdb(long idb);
+
 }

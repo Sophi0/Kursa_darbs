@@ -102,7 +102,7 @@ public class LibrarianController {
             return "librarian-add-book-page";
         }
     }
-
+    //UPDATE BOOK IS WORKING BUT NOT SHOWING EXISTING AUTHOR NAME, REASON - UNKNOWN
     @GetMapping("/librarian/update-book/{id}") //localhost:8080/librarian/update-book/1
     public String getUpdateBook(@PathVariable("id") long id, Model model){
         try {
@@ -142,10 +142,10 @@ public class LibrarianController {
         try {
             librarianService.deleteBookById(id);
             model.addAttribute("book", librarianService.allBooks());
-            return "all-books-page"; //TODO
+            return "librarian-all-books-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     @GetMapping("/librarian/delete-exemplar/{id}") //localhost:8080/librarian/delete-exemplar/1
@@ -153,10 +153,10 @@ public class LibrarianController {
         try {
             librarianService.deleteExemplarById(id);
             model.addAttribute("book", librarianService.allExemplars());
-            return "all-exemplars-page"; //TODO
+            return "librarian-all-exemplars-page"; //TODO
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     //USER - ADD, UPDATE, DELETE

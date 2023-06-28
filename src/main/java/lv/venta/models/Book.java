@@ -45,7 +45,7 @@ public class Book {
     @Max(100)
     private int quantity;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private Collection<Exemplar> exemplars;
 
     public Book(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) {
@@ -55,5 +55,15 @@ public class Book {
         this.description = description;
         this.writingYear = writingYear;
         this.quantity = quantity;
+    }
+
+    public void addExemplar(Exemplar inputExemplar){
+        if(!exemplars.contains(inputExemplar)){
+            exemplars.add(inputExemplar);
+        }
+    }
+
+    public void removeExemplar(Exemplar inputExemplar){
+        exemplars.remove(inputExemplar);
     }
 }
