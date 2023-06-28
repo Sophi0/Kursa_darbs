@@ -227,14 +227,14 @@ public class LibrarianController {
     @GetMapping("/librarian/add-author") //localhost:8080/librarian/add-author
     public String getAddNewAuthor(Model model){
         model.addAttribute("author", new Author());
-        return "librarian-add-author-page"; //TODO
+        return "librarian-add-author-page";
     }
     @PostMapping("/librarian/add-author")
     public String postAddNewAuthor(@Valid Author author, BindingResult result) {
         if(!result.hasErrors()){
             try {
                 librarianService.insertNewAuthor(author.getName(), author.getSurname(), author.getDateOfBirth(), author.getDateOfDeath());
-                return "redirect:/librarian/all-authors-page"; //TODO
+                return "redirect:/librarian/all-authors-page";
             } catch (Exception e){
                 return "redirect:/error";
             }
