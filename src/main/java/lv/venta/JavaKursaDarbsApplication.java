@@ -136,15 +136,18 @@ public class JavaKursaDarbsApplication {
 				bkRepo.save(book9);
 				bkRepo.save(book10);
 
-
-				//Exemplar ex8 = new Exemplar("Gore ot uma", new ArrayList(List.of(au1)), BookGenre.Classic, " ", LocalDate.of(1980, 4, 23), 10, true);
-				Exemplar ex8 = new Exemplar(book1, false);
-				exRepo.save(ex8);
+				// Exemplars
+				for(Book book : bkRepo.findAll()){
+					for(int i = 0; i < book.getQuantity(); i++){
+						exRepo.save(new Exemplar(book, false));
+						bkRepo.save(book);
+					}
+				}
 				
-				ExemplarIssue exi8 = new ExemplarIssue(user2, librarian3, ex8);
+				ExemplarIssue exi8 = new ExemplarIssue(user2, librarian3, exRepo.findByIdex(5));
 				exiRepo.save(exi8);
 
-				ExemplarReturn exRet9 = new ExemplarReturn(user8, librarian5, ex8);
+				ExemplarReturn exRet9 = new ExemplarReturn(user8, librarian5, exRepo.findByIdex(2));
 				exRetRepo.save(exRet9);
 
 
