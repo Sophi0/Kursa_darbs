@@ -178,15 +178,14 @@ public class LibrarianController {
             return "librarian-add-user-page";
         }
     }
-
-    @GetMapping("/librarian/update-user/{id}") //localhost:8080/update-user/1
+    @GetMapping("/librarian/update-user/{id}") //localhost:8080/librarian/update-user/1
     public String getUpdateUser(@PathVariable("id") long id, Model model){
         try {
             model.addAttribute("user", librarianService.retrieveUserById(id));
-            return "update-user-page"; //TODO
+            return "librarian-update-user-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     @PostMapping("/librarian/update-user/{id}")
@@ -194,12 +193,12 @@ public class LibrarianController {
         if(!result.hasErrors()){
             try {
                 librarianService.updateUser(id, user.getName(), user.getSurname(), user.getEmail(), user.getUsername());
-                return "redirect:/all-users-page/" + id; //TODO
+                return "redirect:/librarian/all-users/" + id;
             } catch (Exception e){
-                return "redirect:/error"; //TODO
+                return "redirect:/error";
             }
         } else {
-            return "update-user-page"; //TODO
+            return "librarian-update-user-page";
         }
     }
     @GetMapping("/librarian/delete-user/{id}") //localhost:8080/librarian/delete-user/1
@@ -207,10 +206,10 @@ public class LibrarianController {
         try {
             librarianService.deleteUserById(id);
             model.addAttribute("book", librarianService.allBooks());
-            return "all-books-page"; //TODO
+            return "librarian-all-books-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     @GetMapping("/librarian/delete-user/username/{username}") //localhost:8080/librarian/delete-exemplar/username/{username}
@@ -218,29 +217,29 @@ public class LibrarianController {
         try {
             librarianService.deleteUserByUsername(username);
             model.addAttribute("username", librarianService.allUsers());
-            return "all-users-page"; //TODO
+            return "librarian-all-users-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     //AUTHOR - ADD, UPDATE, DELETE
     @GetMapping("/librarian/add-author") //localhost:8080/librarian/add-author
     public String getAddNewAuthor(Model model){
         model.addAttribute("author", new Author());
-        return "add-author-page"; //TODO
+        return "librarian-add-author-page"; //TODO
     }
     @PostMapping("/librarian/add-author")
     public String postAddNewAuthor(@Valid Author author, BindingResult result) {
         if(!result.hasErrors()){
             try {
                 librarianService.insertNewAuthor(author.getName(), author.getSurname(), author.getDateOfBirth(), author.getDateOfDeath());
-                return "redirect:/all-authors-page"; //TODO
+                return "redirect:/librarian/all-authors-page"; //TODO
             } catch (Exception e){
-                return "redirect:/error"; //TODO
+                return "redirect:/error";
             }
         } else {
-            return "add-author-page";
+            return "librarian-add-author-page";
         }
     }
 
@@ -248,10 +247,10 @@ public class LibrarianController {
     public String getUpdateAuthor(@PathVariable("id") long id, Model model){
         try {
             model.addAttribute("author", librarianService.retrieveAuthorById(id));
-            return "update-author-page"; //TODO
+            return "librarian-update-author-page"; //TODO
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     @PostMapping("/librarian/update-author/{id}")
@@ -259,12 +258,12 @@ public class LibrarianController {
         if(!result.hasErrors()){
             try {
                 librarianService.updateAuthor(id, author.getName(), author.getSurname(), author.getDateOfBirth(), author.getDateOfDeath());
-                return "redirect:/all-authors-page/" + id; //TODO
+                return "redirect:/librarian/all-authors-page/" + id; //TODO
             } catch (Exception e){
-                return "redirect:/error"; //TODO
+                return "redirect:/error";
             }
         } else {
-            return "update-author-page"; //TODO
+            return "librarian-update-author-page"; //TODO
         }
     }
     @GetMapping("/librarian/delete-author/{id}") //localhost:8080/librarian/delete-author/1
@@ -272,10 +271,10 @@ public class LibrarianController {
         try {
             librarianService.deleteAuthor(id);
             model.addAttribute("author", librarianService.allAuthors());
-            return "all-authors-page"; //TODO
+            return "librarian-all-authors-page"; //TODO
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
     @GetMapping("/librarian/delete-author/name-and-surname/{name}/{surname}") //localhost:8080/librarian/delete-author/1
@@ -283,10 +282,10 @@ public class LibrarianController {
         try {
             librarianService.deleteAuthor(name, surname);
             model.addAttribute("author", librarianService.allAuthors());
-            return "all-authors-page"; //TODO
+            return "librarian-all-authors-page"; //TODO
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
-            return "error-page"; //TODO
+            return "error-page";
         }
     }
 
