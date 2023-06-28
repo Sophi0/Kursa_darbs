@@ -60,10 +60,12 @@ public class Book {
     public void addExemplar(Exemplar inputExemplar){
         if(!exemplars.contains(inputExemplar)){
             exemplars.add(inputExemplar);
+            quantity++;
         }
     }
 
     public void removeExemplar(Exemplar inputExemplar){
         exemplars.remove(inputExemplar);
+        quantity--;
     }
 }

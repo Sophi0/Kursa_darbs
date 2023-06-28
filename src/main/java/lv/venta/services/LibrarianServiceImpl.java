@@ -172,55 +172,6 @@ public class LibrarianServiceImpl implements LibrarianService {
     public void deleteAuthor(String name, String surname) {
         authorRepo.deleteByNameAndSurname(name, surname);
     }
-    /*@Override
-    public void deleteBookById(long idb) throws Exception {
-        if(idb > 0) {
-            Book book = bookRepo.findByIdb(idb);
-            if (book != null) {
-                Author author = book.getAuthor();
-                if (author != null) {
-                    author.removeBook(book);
-                    authorRepo.save(author);
-                }
-                bookRepo.delete(book);
-            } else throw new Exception("No book found with this ID");
-            for(Exemplar exemplarTemp : exemplarRepo.findAllByBookIdb(idb)){
-                deleteExemplarById(exemplarTemp.getIdex());
-            }
-            bookRepo.deleteByIdb(idb);
-        }
-        else {
-            throw new Exception("ID need to be positive");
-        }
-    }
-    @Override
-    public void deleteExemplarById(long idex) throws Exception {
-        if(idex > 0) {
-            Exemplar exemplar = exemplarRepo.findByIdex(idex);
-            if (exemplar != null) {
-                Book book = exemplar.getBook();
-                ArrayList<ExemplarIssue> allIssues = exemplarIssueRepo.findAllByExemplarIdex(idex);
-                ArrayList<ExemplarReturn> allReturns = exemplarReturnRepo.findAllByExemplarIdex(idex);
-                if (book != null) {
-                    book.removeExemplar(exemplar);
-                    bookRepo.save(book);
-                }
-                for(ExemplarIssue tempIssue : allIssues){
-                    tempIssue.setExemplar(null);
-                }
-                for(ExemplarReturn tempReturn : allReturns){
-                    tempReturn.setExemplar(null);
-                }
-                exemplarRepo.delete(exemplar);
-            } else throw new Exception("No exemplar found with this ID");
-            exemplarRepo.deleteByIdex(idex);
-        }
-        else {
-            throw new Exception("ID need to be positive");
-        }
-
-    }*/
-
     @Override
     public void deleteBookById(long idb) throws Exception {
         if (idb > 0) {
@@ -243,7 +194,6 @@ public class LibrarianServiceImpl implements LibrarianService {
             throw new Exception("ID needs to be positive");
         }
     }
-
     @Override
     public void deleteExemplarById(long idex) throws Exception {
         if (idex > 0) {

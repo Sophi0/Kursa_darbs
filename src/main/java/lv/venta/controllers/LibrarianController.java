@@ -152,8 +152,8 @@ public class LibrarianController {
     public String getDeleteExemplar(@PathVariable("id") long id, Model model){
         try {
             librarianService.deleteExemplarById(id);
-            model.addAttribute("book", librarianService.allExemplars());
-            return "librarian-all-exemplars-page"; //TODO
+            model.addAttribute("exemplar", librarianService.allExemplars());
+            return "librarian-all-exemplars-page";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
