@@ -23,4 +23,5 @@ public interface IBookRepo extends CrudRepository<Book, Long>{
 
     void deleteByIdb(long idb);
 
+    ArrayList<Book> findAllByAuthorIdp(long id);
 }

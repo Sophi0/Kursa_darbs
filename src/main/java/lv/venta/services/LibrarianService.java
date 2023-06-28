@@ -32,8 +32,8 @@ public interface LibrarianService {
     Author retrieveAuthorById(long id) throws Exception;
     Author retrieveAuthorBySurname(String surname) throws Exception;
     void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception;
-    void deleteAuthor(long authorId) throws Exception;
-    void deleteAuthor(String name, String surname);
+    void deleteAuthorById(long authorId) throws Exception;
+    void deleteAuthorByNameAndSurname(String name, String surname) throws Exception;
 
     void giveBook(long userId, long librarianId, long exemplarId) throws Exception;
     void returnBook(long userId, long librarianId, long exemplarId) throws Exception;

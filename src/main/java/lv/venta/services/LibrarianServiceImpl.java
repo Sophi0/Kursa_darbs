@@ -165,14 +165,31 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
     //DELETE FUNCTIONS
     @Override
-    public void deleteAuthor(long authorId) throws Exception {
+    @Transactional
+    public void deleteAuthorById(long authorId) throws Exception {
         if(authorId > 0){
+            ArrayList<Book> books = bookRepo.findAllByAuthorIdp(authorId);
+            for(Book bookTemp : books){
+                bookTemp.setAuthor(null);
+                bookRepo.save(bookTemp);
+                ArrayList<Exemplar> exemplars = exemplarRepo.findAllByBookIdb(bookTemp.getIdb());
+                exemplarRepo.saveAll(exemplars);
+                for(Exemplar exTemp : exemplars){
+                    ArrayList<ExemplarIssue> exIssues = exemplarIssueRepo.findAllByExemplarIdex(exTemp.getIdex());
+                    exemplarIssueRepo.saveAll(exIssues);
+                    ArrayList<ExemplarReturn> exReturns = exemplarReturnRepo.findAllByExemplarIdex(exTemp.getIdex());
+                    exemplarReturnRepo.saveAll(exReturns);
+                }
+            }
             authorRepo.deleteByIdp(authorId);
         } else throw new Exception("Incorrect id");
     }
     @Override
-    public void deleteAuthor(String name, String surname) {
-        authorRepo.deleteByNameAndSurname(name, surname);
+    @Transactional
+    public void deleteAuthorByNameAndSurname(String name, String surname) throws Exception {
+        if(authorRepo.existsByName(name)&& authorRepo.existsBySurname(surname)){
+            deleteAuthorById(authorRepo.findByNameAndSurname(name, surname).getIdp());
+        } else throw new Exception("Author with this name and/or surname doe not exist");
     }
     @Override
     public void deleteBookById(long idb) throws Exception {
@@ -210,9 +227,11 @@ public class LibrarianServiceImpl implements LibrarianService {
                 }
                 for (ExemplarIssue tempIssue : allIssues) {
                     tempIssue.setExemplar(null);
+                    exemplarIssueRepo.save(tempIssue);
                 }
                 for (ExemplarReturn tempReturn : allReturns) {
                     tempReturn.setExemplar(null);
+                    exemplarReturnRepo.save(tempReturn);
                 }
                 exemplarRepo.delete(exemplar);
             } else {

@@ -13,8 +13,6 @@ public interface IAuthorRepo extends CrudRepository<Author, Long>{
 
     void deleteByIdp(long authorId);
 
-    void deleteByNameAndSurname(String name, String surname);
-
     boolean existsBySurname(String surname);
 
     boolean existsByName(String name);
@@ -23,5 +21,5 @@ public interface IAuthorRepo extends CrudRepository<Author, Long>{
 
     boolean existsByDateOfDeath(LocalDate dateOfDeath);
 
-    Author findByBooksIdb(long idb);
+    Author findByNameAndSurname(String name, String surname);
 }
