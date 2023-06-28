@@ -163,19 +163,19 @@ public class LibrarianController {
     @GetMapping("/librarian/add-user") //localhost:8080/librarian/add-user
     public String getAddNewUser(Model model){
         model.addAttribute("user", new User());
-        return "add-user-page"; //TODO
+        return "librarian-add-user-page";
     }
     @PostMapping("/librarian/add-user")
     public String postAddNewUser(@Valid User user, BindingResult result) {
         if(!result.hasErrors()){
             try {
                 librarianService.insertNewUser(user.getName(), user.getSurname(), user.getEmail(), user.getUsername());
-                return "redirect:/all-users-page"; //TODO
+                return "redirect:/librarian/all-users";
             } catch (Exception e){
-                return "redirect:/error"; //TODO
+                return "redirect:/error";
             }
         } else {
-            return "add-user-page";
+            return "librarian-add-user-page";
         }
     }
 
