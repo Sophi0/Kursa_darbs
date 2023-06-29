@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
     		User user = userRepo.findByIdp(idp);
     		for(Exemplar exemplar : book.getExemplars()) {
     			if(!exemplar.isIssued()) {
-    				exemplarIssueRepo.save(new ExemplarIssue(user, exemplar));
+    				exemplarIssueRepo.save(new ExemplarIssue(user, null, exemplar));
     				exemplar.setIssued(true);
     				
     				exemplarRepo.save(exemplar);
