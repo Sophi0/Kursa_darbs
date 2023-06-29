@@ -5,7 +5,7 @@
     <title>Return book</title>
 </head>
 <body>
-<form action="#" th:action="@{/librarian/return-book}" th:object="${return}" method="post">
+<form action="#" th:action="@{/librarian/return-book}" th:object="${exemplarReturn}" method="post">
     <table>
         <tr>
             <td>User:</td>
@@ -27,15 +27,13 @@
         </tr>
         <tr>
             <td>Exemplar ID:</td>
-            <td><input type="text" name="exemplarId" /></td>
-            <td th:if="${#fields.hasErrors('exemplarId')}" th:errors="*{exemplarId}"> </td>
+            <td><input type="text" th:field="*{exemplar}"/></td>
+            <td th:if="${#fields.hasErrors('exemplar')}" th:errors="*{exemplar}"> </td>
         </tr>
-
         <tr>
             <td><button type="submit">Return Book</button></td>
         </tr>
     </table>
 </form>
-
 </body>
 </html>

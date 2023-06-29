@@ -5,46 +5,66 @@
     <title>All returns</title>
 </head>
 <style>
+    .container {
+        position: relative;
+    }
+    .button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
     table {
         border-collapse: collapse;
         width: 100%;
     }
-
     th, td {
         padding: 8px;
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
-
     tr:hover {
         background-color: #f5f5f5;
     }
+    h1 {
+        margin-bottom: 20px;
+    }
 </style>
 <body>
-<h1>All exemplar returns</h1>
-<table>
-    <tr>
-        <th>Return id</th>
-        <th>User name and surname</th>
-        <th>Librarian name and surname</th>
-        <th>Exemplar id</th>
-        <th>Exemplar title</th>
-        <th>Exemplar author</th>
-        <th>Expiry date</th>
-        <th>When is returned</th>
-    </tr>
-    <th:block th:each="temp : ${return}">
+<div class="container">
+    <h1>All exemplar returns</h1>
+    <a href="/librarian/return-book" class="button">Return a book</a>
+    <table>
         <tr>
-            <td th:text="${temp.getIdr()}"></td>
-            <td th:text="${temp.getUser().getName()} + ' ' + ${temp.getUser().getSurname()}"></td>
-            <td th:text="${temp.getLibrarian().getName()} + ' ' + ${temp.getLibrarian().getSurname()}"></td>
-            <td th:text="${temp.getExemplar().getIdex()}"></td>
-            <td th:text="${temp.getExemplar().getBook().getTitle()}"></td>
-            <td th:text="${temp.getExemplar().getBook().getAuthor().getName()} + ' ' + ${temp.getExemplar().getBook().getAuthor().getSurname()}"></td>
-            <td th:if="${exemplarIssue}" th:text="${#temporals.format(exemplarIssue.expiryDate, 'dd-MM-yyyy HH:mm')}"></td>
-            <td th:text="${#temporals.format(temp.getDateBookIsReturned(), 'dd-MM-yyyy HH:mm')}"></td>
+            <th>Return id</th>
+            <th>User name and surname</th>
+            <th>Librarian name and surname</th>
+            <th>Exemplar id</th>
+            <th>Exemplar title</th>
+            <th>Exemplar author</th>
+            <th>Expiry date</th>
+            <th>When is returned</th>
         </tr>
-    </th:block>
-</table>
+        <th:block th:each="temp : ${return}">
+            <tr>
+                <td th:text="${temp.getIdr()}"></td>
+                <td th:text="${temp.getUser().getName()} + ' ' + ${temp.getUser().getSurname()}"></td>
+                <td th:text="${temp.getLibrarian().getName()} + ' ' + ${temp.getLibrarian().getSurname()}"></td>
+                <td th:text="${temp.getExemplar().getIdex()}"></td>
+                <td th:text="${temp.getExemplar().getBook().getTitle()}"></td>
+                <td th:text="${temp.getExemplar().getBook().getAuthor().getName()} + ' ' + ${temp.getExemplar().getBook().getAuthor().getSurname()}"></td>
+                <td th:text="${#temporals.format(temp.getExpiryDateFromIssue(), 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${#temporals.format(temp.getDateBookIsReturned(), 'dd-MM-yyyy HH:mm')}"></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
 </body>
 </html>
