@@ -40,7 +40,7 @@
 <body>
 <div class="container">
     <h1>All exemplar issues</h1>
-    <a href="/librarian/give-book" class="button">Give a book</a> <!-- Button with the "button" class -->
+    <a href="/librarian/give-book" class="button">Give a book</a>
     <table>
         <tr>
             <th>Issue id</th>
@@ -60,8 +60,8 @@
                 <td th:text="${temp.getExemplar().getIdex()}"></td>
                 <td th:text="${temp.getExemplar().getBook().getTitle()}"></td>
                 <td th:text="${temp.getExemplar().getBook().getAuthor().getName()} + ' ' + ${temp.getExemplar().getBook().getAuthor().getSurname()}"></td>
-                <td th:text="${#temporals.format(temp.getDateBookIsIssued(), 'yyyy-MM-dd HH:mm')}"></td>
-                <td th:text="${#temporals.format(temp.getExpiryDate(), 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${#temporals.format(temp.getDateBookIsIssued(), 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:text="${#temporals.format(temp.getExpiryDate(), 'dd-MM-yyyy HH:mm')}"></td>
             </tr>
         </th:block>
     </table>
