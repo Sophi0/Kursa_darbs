@@ -170,16 +170,8 @@ public class LibrarianServiceImpl implements LibrarianService {
         if(authorId > 0){
             ArrayList<Book> books = bookRepo.findAllByAuthorIdp(authorId);
             for(Book bookTemp : books){
-                bookTemp.setAuthor(null);
-                bookRepo.save(bookTemp);
-                ArrayList<Exemplar> exemplars = exemplarRepo.findAllByBookIdb(bookTemp.getIdb());
-                exemplarRepo.saveAll(exemplars);
-                for(Exemplar exTemp : exemplars){
-                    ArrayList<ExemplarIssue> exIssues = exemplarIssueRepo.findAllByExemplarIdex(exTemp.getIdex());
-                    exemplarIssueRepo.saveAll(exIssues);
-                    ArrayList<ExemplarReturn> exReturns = exemplarReturnRepo.findAllByExemplarIdex(exTemp.getIdex());
-                    exemplarReturnRepo.saveAll(exReturns);
-                }
+                //WE ARE DELETING ALL BOOKS OF AUTHOR
+                deleteBookById(bookTemp.getIdb());
             }
             authorRepo.deleteByIdp(authorId);
         } else throw new Exception("Incorrect id");

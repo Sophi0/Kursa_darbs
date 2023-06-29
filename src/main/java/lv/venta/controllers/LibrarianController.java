@@ -148,6 +148,7 @@ public class LibrarianController {
             return "error-page";
         }
     }
+    //TODO add exemplar
     @GetMapping("/librarian/delete-exemplar/{id}") //localhost:8080/librarian/delete-exemplar/1
     public String getDeleteExemplar(@PathVariable("id") long id, Model model){
         try {
@@ -288,6 +289,7 @@ public class LibrarianController {
             return "error-page";
         }
     }
+
 
 
 }
