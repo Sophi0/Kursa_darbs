@@ -4,10 +4,13 @@ import jakarta.validation.Valid;
 import lv.venta.models.*;
 import lv.venta.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @Controller
 public class LibrarianController {
@@ -299,7 +302,7 @@ public class LibrarianController {
             return "error-page";
         }
     }
-    @GetMapping("/librarian/give-book") //localhost:8080/librarian/add-user
+    @GetMapping("/librarian/give-book") //localhost:8080/librarian/give-book
     public String getGiveBook(Model model){
         model.addAttribute("issue", new ExemplarIssue());
         model.addAttribute("users", librarianService.allUsers());
@@ -318,7 +321,7 @@ public class LibrarianController {
         }
 
     }
-    @GetMapping("/librarian/return-book") //localhost:8080/librarian/add-user
+    @GetMapping("/librarian/return-book") //localhost:8080/librarian/return-book
     public String getReturnBook(Model model){
         model.addAttribute("exemplarReturn", new ExemplarReturn());
         model.addAttribute("users", librarianService.allUsers());
@@ -337,6 +340,21 @@ public class LibrarianController {
             }
         } else {
             return "librarian-return-book-page";
+        }
+    }
+    @GetMapping("/librarian/update-expiry-date") //localhost:8080/librarian/update-expiry-date
+    public String getUpdateExpiryDate() {
+        return "librarian-update-expiry-date";
+    }
+
+    @PostMapping("/librarian/update-expiry-date")
+    public String postUpdateExpiryDate(@RequestParam("exemplarIssueId") long exemplarIssueId,
+                                       @RequestParam("newExpiryDate") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime newExpiryDate) {
+        try {
+            librarianService.updateExpiryDate(exemplarIssueId, newExpiryDate);
+            return "redirect:/librarian/all-issues";
+        } catch (Exception e) {
+            return "redirect:/error";
         }
     }
 

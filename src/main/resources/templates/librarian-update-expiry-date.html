@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Expiry Date</title>
+</head>
+<body>
+<h1>Update Expiry Date</h1>
+<form action="#" th:action="@{/librarian/update-expiry-date}" method="post">
+    <table>
+        <tr>
+            <td>Exemplar Issue ID:</td>
+            <td><input type="text" name="exemplarIssueId"/></td>
+        </tr>
+        <tr>
+            <td>New Expiry Date:</td>
+            <td><input type="datetime-local" name="newExpiryDate"/></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Update Expiry Date</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

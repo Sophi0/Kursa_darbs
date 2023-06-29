@@ -333,7 +333,7 @@ public class LibrarianServiceImpl implements LibrarianService {
     }
 
     @Override
-    public void updateExpiringDate(long exemplarIssueId, LocalDateTime newDateTime) throws Exception {
+    public void updateExpiryDate(long exemplarIssueId, LocalDateTime newDateTime) throws Exception {
         if(exemplarIssueId > 0) {
             ExemplarIssue exemplarIssue = exemplarIssueRepo.findByIdis(exemplarIssueId);
             exemplarIssue.setExpiryDate(newDateTime);

@@ -44,7 +44,7 @@ public interface LibrarianService {
 
     void returnBook(long userId, long librarianId, long exemplarId) throws Exception;
 
-    void updateExpiringDate(long exemplarIssueId, LocalDateTime newDateTime) throws Exception;
+    void updateExpiryDate(long exemplarIssueId, LocalDateTime newDateTime) throws Exception;
 
     void writeMessage(long userId, String message) throws Exception;
 }
