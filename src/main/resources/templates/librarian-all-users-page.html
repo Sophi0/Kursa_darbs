@@ -21,6 +21,28 @@
         cursor: pointer;
         border-radius: 4px;
     }
+    .button1 {
+        position: absolute;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+    .button2 {
+        background-color: transparent;
+        color: black;
+        padding: 5px 10px 5px 0;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;
@@ -48,6 +70,7 @@
         <th>Name</th>
         <th>Surname</th>
         <th>Email</th>
+        <th>Actions</th>
     </tr>
     <th:block th:each="temp : ${user}">
         <tr>
@@ -56,9 +79,14 @@
             <td th:text="${temp.getName()}"></td>
             <td th:text="${temp.getSurname()}"></td>
             <td th:text="${temp.getEmail()}"></td>
+            <td>
+                <a th:href="@{'/librarian/update-user/' + ${temp.getIdp()}}" class="button2">Update</a>
+                <a th:href="@{'/librarian/delete-user/' + ${temp.getIdp()}}" class="button2">Delete</a>
+            </td>
         </tr>
     </th:block>
 </table>
-
+    <a href="/librarian/add-user" class="button1">Add</a>
+</div>
 </body>
 </html>

@@ -131,7 +131,6 @@ public class LibrarianController {
             return "error-page";
         }
     }
-
     //TODO add exemplar
     @GetMapping("/librarian/delete-exemplar/{id}") //localhost:8080/librarian/delete-exemplar/1
     public String getDeleteExemplar(@PathVariable("id") long id, Model model){
@@ -163,36 +162,36 @@ public class LibrarianController {
             return "librarian-add-user-page";
         }
     }
-    @GetMapping("/librarian/update-user/{id}") //localhost:8080/librarian/update-user/1
-    public String getUpdateUser(@PathVariable("id") long id, Model model){
+    @GetMapping("/librarian/update-user/{id}")
+    public String getUpdateUser(@PathVariable("id") long id, Model model) {
         try {
             model.addAttribute("user", librarianService.retrieveUserById(id));
             return "librarian-update-user-page";
-        } catch (Exception e){
+        } catch (Exception e) {
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
         }
     }
     @PostMapping("/librarian/update-user/{id}")
-    public String postUpdateUser(@PathVariable("id") long id, @Valid User user, BindingResult result){
-        if(!result.hasErrors()){
+    public String postUpdateUser(@PathVariable("id") long id, @Valid User user, BindingResult result) {
+        if (!result.hasErrors()) {
             try {
                 librarianService.updateUser(id, user.getName(), user.getSurname(), user.getEmail(), user.getUsername());
                 return "redirect:/librarian/all-users";
-            } catch (Exception e){
+            } catch (Exception e) {
                 return "redirect:/error";
             }
         } else {
             return "librarian-update-user-page";
         }
     }
-    @GetMapping("/librarian/delete-user/{id}") //localhost:8080/librarian/delete-user/1
-    public String getDeleteUserById(@PathVariable("id") long id, Model model){
+    @GetMapping("/librarian/delete-user/{id}")
+    public String getDeleteUserById(@PathVariable("id") long id, Model model) {
         try {
             librarianService.deleteUserById(id);
-            model.addAttribute("user", librarianService.allUsers());
+            model.addAttribute("users", librarianService.allUsers());
             return "redirect:/librarian/all-users";
-        } catch (Exception e){
+        } catch (Exception e) {
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
         }
