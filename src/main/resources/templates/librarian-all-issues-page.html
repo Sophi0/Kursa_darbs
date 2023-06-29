@@ -5,43 +5,66 @@
     <title>All issues</title>
 </head>
 <style>
+    .container {
+        position: relative;
+    }
+    .button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
     table {
         border-collapse: collapse;
         width: 100%;
     }
-
     th, td {
         padding: 8px;
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
-
     tr:hover {
         background-color: #f5f5f5;
     }
+    h1 {
+        margin-bottom: 20px;
+    }
 </style>
 <body>
-<h1>All exemplar issues</h1>
-<table>
-    <tr>
-        <th>Issue id</th>
-        <th>User name and surname</th>
-        <th>Librarian name and surname</th>
-        <th>Exemplar id</th>
-        <th>Exemplar title</th>
-        <th>Exemplar author</th>
-    </tr>
-    <th:block th:each="temp : ${issue}">
+<div class="container">
+    <h1>All exemplar issues</h1>
+    <a href="/librarian/give-book" class="button">Give a book</a> <!-- Button with the "button" class -->
+    <table>
         <tr>
-            <td th:text="${temp.getIdis()}"></td>
-            <td th:text="${temp.getUser().getName()} + ' ' + ${temp.getUser().getSurname()}"> </td>
-            <td th:text="${temp.getLibrarian().getName()} + ' ' + ${temp.getLibrarian().getSurname()}"> </td>
-            <td th:text="${temp.getExemplar().getIdex()}"></td>
-            <td th:text="${temp.getExemplar().getBook().getTitle()}"></td>
-            <td th:text="${temp.getExemplar().getBook().getAuthor().getName()} + ' ' + ${temp.getExemplar().getBook().getAuthor().getSurname()}"></td>
+            <th>Issue id</th>
+            <th>User name and surname</th>
+            <th>Librarian name and surname</th>
+            <th>Exemplar id</th>
+            <th>Exemplar title</th>
+            <th>Exemplar author</th>
+            <th>When is issued</th>
+            <th>Expiry date</th>
         </tr>
-    </th:block>
-</table>
-
+        <th:block th:each="temp : ${issue}">
+            <tr>
+                <td th:text="${temp.getIdis()}"></td>
+                <td th:text="${temp.getUser().getName()} + ' ' + ${temp.getUser().getSurname()}"></td>
+                <td th:text="${temp.getLibrarian().getName()} + ' ' + ${temp.getLibrarian().getSurname()}"></td>
+                <td th:text="${temp.getExemplar().getIdex()}"></td>
+                <td th:text="${temp.getExemplar().getBook().getTitle()}"></td>
+                <td th:text="${temp.getExemplar().getBook().getAuthor().getName()} + ' ' + ${temp.getExemplar().getBook().getAuthor().getSurname()}"></td>
+                <td th:text="${#temporals.format(temp.getDateBookIsIssued(), 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${#temporals.format(temp.getExpiryDate(), 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
 </body>
 </html>
