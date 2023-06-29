@@ -35,6 +35,10 @@ public class ExemplarReturn {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateBookIsReturned = LocalDateTime.now();
 
+    @Column(name="expiryDateFromIssue")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime expiryDateFromIssue;
+
     public ExemplarReturn(User user, Librarian librarian, Exemplar exemplar) {
         this.user = user;
         this.librarian = librarian;
