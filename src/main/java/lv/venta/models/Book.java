@@ -42,7 +42,7 @@ public class Book {
     @Max(1000)
     private int quantity;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private Collection<Exemplar> exemplars;
     
     @ManyToOne

@@ -68,11 +68,24 @@
         <th:block th:each="temp : ${issue}">
             <tr>
                 <td th:text="${temp.getIdis()}"></td>
-                <td th:text="${temp.getUser().getName()} + ' ' + ${temp.getUser().getSurname()}"></td>
-                <td th:text="${temp.getLibrarian().getName()} + ' ' + ${temp.getLibrarian().getSurname()}"></td>
+                <td>
+                    <span th:if="${temp.getUser() != null}" th:text="${temp.getUser().getName() + ' ' + temp.getUser().getSurname()}"></span>
+                    <span th:unless="${temp.getUser() != null}">None</span>
+                </td>
+                <td>
+                    <span th:if="${temp.getLibrarian() != null}" th:text="${temp.getLibrarian().getName() + ' ' + temp.getLibrarian().getSurname()}"></span>
+                    <span th:unless="${temp.getLibrarian() != null}">None</span>
+                </td>
                 <td th:text="${temp.getExemplar().getIdex()}"></td>
-                <td th:text="${temp.getExemplar().getBook().getTitle()}"></td>
-                <td th:text="${temp.getExemplar().getBook().getAuthor().getName()} + ' ' + ${temp.getExemplar().getBook().getAuthor().getSurname()}"></td>
+                <td>
+                    <span th:if="${temp.getExemplar().getBook() != null}" th:text="${temp.getExemplar().getBook().getTitle()}"></span>
+                    <span th:unless="${temp.getExemplar().getBook() != null}">None</span>
+                </td>
+                <td>
+                    <span th:if="${temp.getExemplar().getBook() != null && temp.getExemplar().getBook().getAuthor() != null}"
+                          th:text="${temp.getExemplar().getBook().getAuthor().getName() + ' ' + temp.getExemplar().getBook().getAuthor().getSurname()}"></span>
+                    <span th:unless="${temp.getExemplar().getBook() != null && temp.getExemplar().getBook().getAuthor() != null}">None</span>
+                </td>
                 <td th:text="${#temporals.format(temp.getDateBookIsIssued(), 'dd-MM-yyyy HH:mm')}"></td>
                 <td th:text="${#temporals.format(temp.getExpiryDate(), 'dd-MM-yyyy HH:mm')}"></td>
             </tr>
