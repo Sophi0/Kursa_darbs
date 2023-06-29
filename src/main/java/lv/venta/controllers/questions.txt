@@ -1,0 +1,2 @@
+1) After deleting, web address is wrong
+2) is it necessary to put if not null check in all html view ?
