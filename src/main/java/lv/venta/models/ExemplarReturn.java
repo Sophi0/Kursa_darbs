@@ -32,7 +32,7 @@ public class ExemplarReturn {
     private Exemplar exemplar;
 
     @Column(name="dateBookIsReturned")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateBookIsReturned = LocalDateTime.now();
 
     public ExemplarReturn(User user, Librarian librarian, Exemplar exemplar) {
