@@ -301,34 +301,6 @@ public class LibrarianController {
             return "error-page";
         }
     }
-    @GetMapping("/librarian/give-book/{userId}/{librarianId}/{exemplarId}") //localhost:8080/librarian/delete-author/name-and-surname/{name}/{surname}
-    public String getGiveBookById(@PathVariable("userId") long userId, @PathVariable("librarianId") long librarianId, @PathVariable("exemplarId") long exemplarId, Model model){
-        try {
-            librarianService.giveBook(userId, librarianId, exemplarId);
-            model.addAttribute("issue", librarianService.allIssues());
-            return "librarian-all-issues-page";
-        } catch (Exception e){
-            model.addAttribute("packetError", e.getMessage());
-            return "error-page";
-        }
-    }
-    //TODO remake give book and return as add function
-    @GetMapping("/librarian/return-book/{userId}/{librarianId}/{exemplarId}")
-    public String getReturnBookById(@PathVariable("userId") long userId, @PathVariable("librarianId") long librarianId, @PathVariable("exemplarId") long exemplarId, Model model) {
-        try {
-            librarianService.returnBook(userId, librarianId, exemplarId);
-            ExemplarIssue exemplarIssue = librarianService.getExemplarIssueByExemplarId(exemplarId);
-            model.addAttribute("return", librarianService.allReturns());
-            if (exemplarIssue != null) {
-                model.addAttribute("exemplarIssue", exemplarIssue);
-            }
-            return "librarian-all-returns-page";
-        } catch (Exception e) {
-            model.addAttribute("packetError", e.getMessage());
-            return "error-page";
-        }
-    }
-
     @GetMapping("/librarian/give-book") //localhost:8080/librarian/add-user
     public String getGiveBook(Model model){
         model.addAttribute("issue", new ExemplarIssue());
@@ -353,18 +325,18 @@ public class LibrarianController {
     }
     @GetMapping("/librarian/return-book") //localhost:8080/librarian/add-user
     public String getReturnBook(Model model){
-        model.addAttribute("return", new ExemplarReturn());
+        model.addAttribute("exemplarReturn", new ExemplarReturn());
         model.addAttribute("users", librarianService.allUsers());
         model.addAttribute("librarians", librarianService.allLibrarians());
         return "librarian-return-book-page";
     }
+
     @PostMapping("/librarian/return-book")
-    public String postReturnBook(BindingResult result, @RequestParam("userId") Long userId,
-                                 @RequestParam("librarianId") Long librarianId,
-                                 @RequestParam("exemplarId") Long exemplarId) {
+    public String postReturnBook(@Valid ExemplarReturn exemplarReturn, BindingResult result, @RequestParam("userId") Long userId,
+                                 @RequestParam("librarianId") Long librarianId) {
         if (!result.hasErrors()) {
             try {
-                librarianService.returnBook(userId, librarianId, exemplarId);
+                librarianService.returnBook(userId, librarianId, exemplarReturn.getExemplar().getIdex());
                 return "redirect:/librarian/all-returns";
             } catch (Exception e) {
                 return "redirect:/error";
