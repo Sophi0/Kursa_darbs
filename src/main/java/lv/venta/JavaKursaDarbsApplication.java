@@ -20,14 +20,14 @@ public class JavaKursaDarbsApplication {
 	}
 
 	@Bean
-	public CommandLineRunner testModel(IAuthorRepo auRepo, IBookRepo bkRepo, IExemplarIssueRepo exiRepo, IExemplarReturnRepo exRetRepo, IExemplarRepo exRepo, ILibrarianRepo lbRepo, IUserRepo usRepo) {
+	public CommandLineRunner workModel(IAuthorRepo auRepo, IBookRepo bkRepo, IExemplarIssueRepo exiRepo, IExemplarReturnRepo exRetRepo, IExemplarRepo exRepo, ILibrarianRepo lbRepo, IUserRepo usRepo) {
 		return new CommandLineRunner() {
 
 			@Override
 			public void run(String... args) throws Exception {
 				
 				Author au1 = new Author("George", "Orwell", LocalDate.of(1957, 5, 20), LocalDate.of(2010, 4, 10));
-				Author au2 = new Author("John", "Tolkien", LocalDate.of(1949, 6, 3), LocalDate.of(2000, 3, 23));
+				Author au2 = new Author("Joanna", "Rowling", LocalDate.of(1949, 6, 3), LocalDate.of(2000, 3, 23));
 				auRepo.save(au1);
 				auRepo.save(au2);
 				

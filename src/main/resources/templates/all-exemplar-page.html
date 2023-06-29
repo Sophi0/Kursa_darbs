@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Book Page</title>
+    <title>All Books</title>
 </head>
 <style>
-     table {
+    table {
         border-collapse: collapse;
         width: 100%;
     }
@@ -20,25 +20,32 @@
     }
 </style>
 <body>
-    <h1>Book Page</h1>
+    <h1>All Books</h1>
     
     <table>
         <thead>
             <tr>
+				<th>User ID</th>
+				<th>Username</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Publication Year</th>
                 <th>Book Genre</th>
                 <th>Description</th>
+                <th>Quantity</th>
+             
             </tr>
         </thead>
         <tbody>
-            <tr th:each="temp : ${bookedBooks}">
-              	<td th:text="${temp.getBook().getTitle()}"></td>
+            <tr th:each="temp : ${book}">
+				<td th:text="${user.getIdp}"</td>
+				<td th:text="${user.getUsername}"</td>
+                <td th:text="${temp.getBook().getTitle()}"></td>
                 <td th:text="${temp.getBook().getAuthor().getName()} + ' ' + ${temp.getBook().getAuthor().getSurname()}"></td>
                 <td th:text="${temp.getBook().getWritingYear()}"></td>
                 <td th:text="${temp.getBook().getGenre()}"></td>
                 <td th:text="${temp.getBook().getDescription()}"></td>
+                <td th:text="${temp.getBook().getQuantity()}"></td>
             </tr>
         </tbody>
     </table>

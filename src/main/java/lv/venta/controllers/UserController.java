@@ -1,17 +1,18 @@
 package lv.venta.controllers;
 
-import java.util.ArrayList;
+import lv.venta.models.*;
+import lv.venta.repos.*;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.validation.Valid;
-import lv.venta.models.Book;
+import lv.venta.models.User;
 import lv.venta.services.UserService;
 
 @Controller
@@ -54,11 +55,20 @@ public class UserController {
 	}
     
     //WORKING
+    @GetMapping(value = "/user/showAll/users")	//localhost:8080/user/showAll/users
+	public String getAllUsers(Model model) {
+		model.addAttribute("user", userService.selectAllUsers());
+		return "all-user-page";
+	}
+    
+    //WORKING
     @GetMapping(value = "/user/showAll/userBooks/{id}")	//localhost:8080/user/showAll/userBooks/{id}
 	public String getAllUserBooks(Model model, @PathVariable("id") long idp) {
 		try {
+			User user = userService.retrieveUserById(idp);
+			model.addAttribute("user", user);
 			model.addAttribute("book", userService.selectAllUserBooks(idp));
-			return "all-book-page";
+			return "all-exemplar-page";
 		}
 		catch (Exception e) {
 			model.addAttribute("msg", e.getMessage());
@@ -66,11 +76,11 @@ public class UserController {
 		}
 	}
     
-    //NOT WORKING
+    //WORKING
     @GetMapping(value = "/user/showAll/fines/{id}")	//localhost:8080/user/showAll/fines/{id}
     public String getAllFinesByUserId(Model model, @PathVariable("id") long idp) {
     	try {
-    		model.addAttribute("book", userService.finesForAllBooks(idp));
+    		model.addAttribute("fines", userService.finesForAllBooks(idp));
 			return "all-fines-book-page";
     	}
     	catch (Exception e) {
@@ -79,28 +89,36 @@ public class UserController {
 		}
     }
     
-    
+    //NOT WORKING
+   /*  
     @GetMapping(value = "/user/bookAbook/{id}/{idp}")	//localhost:8080/user/bookAbook/{id}/{id}
     public String getBookABookById(@PathVariable("id") long idb, @PathVariable("id") long idp, Model model) {
-    	model.addAttribute("book", new Book());
-		model.addAttribute("idp", idp);
-		return "book-a-book-page";
+    	try {
+    		   userService.bookBook(idb, idp);
+    		   return "redirect:/user/showAll/book";
+    	}
+    	catch (Exception e) {
+	 model.addAttribute("msg", e.getMessage());
+		return "error-page";
+}
     }
     
-    
+   
     @PostMapping("/user/bookAbook/{id}/{idp}")
     public String postBookABookById(@PathVariable("id") long idb, @PathVariable("id") long idp, @Valid Book book, BindingResult result) {
     	if (!result.hasErrors()) {
             try {
             	userService.bookBook(idb, idp);
-            	//NOT WORKING
+            	
                 return "redirect:/user/showAll/book/" + idb + "/" + idp;
             } catch (Exception e) {
                 return "redirect:/error-page";
             }
         } else return "book-a-book-page";
     }
+ */   
     
+
 }
 
 

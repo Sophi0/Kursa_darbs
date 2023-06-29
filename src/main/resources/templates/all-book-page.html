@@ -36,12 +36,12 @@
         </thead>
         <tbody>
             <tr th:each="temp : ${book}">
-                <td th:text="${temp.title}"></td>
+                <td th:text="${temp.getTitle()}"></td>
                 <td th:text="${temp.getAuthor().getName()} + ' ' + ${temp.getAuthor().getSurname()}"></td>
-                <td th:text="${temp.writingYear}"></td>
-                <td th:text="${temp.genre}"></td>
-                <td th:text="${temp.description}"></td>
-                <td th:text="${temp.quantity}"></td>
+                <td th:text="${temp.getWritingYear()}"></td>
+                <td th:text="${temp.getGenre()}"></td>
+                <td th:text="${temp.getDescription()}"></td>
+                <td th:text="${temp.getQuantity()}"></td>
             </tr>
         </tbody>
     </table>

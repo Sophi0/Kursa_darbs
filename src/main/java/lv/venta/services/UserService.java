@@ -2,6 +2,7 @@ package lv.venta.services;
 
 import lv.venta.models.Book;
 import lv.venta.models.Exemplar;
+import lv.venta.models.User;
 
 import java.util.ArrayList;
 
@@ -12,4 +13,6 @@ public interface UserService {
     ArrayList<Exemplar> selectAllUserBooks(long userId);
     float finesForAllBooks(long userId) throws Exception;
     boolean bookBook(long idb, long idp) throws Exception;
+	User retrieveUserById(long id) throws Exception;
+	ArrayList<User> selectAllUsers();
 }
