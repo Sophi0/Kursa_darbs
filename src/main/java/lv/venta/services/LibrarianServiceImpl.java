@@ -309,8 +309,9 @@ public class LibrarianServiceImpl implements LibrarianService {
 
                 ExemplarIssue exemplarIssue = exemplarIssueRepo.findByUserAndLibrarianAndExemplar(user, librarian, exemplar);
                 if (exemplarIssue != null) {
-                    exemplarReturnRepo.save(new ExemplarReturn(user, librarian, exemplar));
-//                    exemplarIssueRepo.delete(exemplarIssue);
+                    ExemplarReturn exReturn = new ExemplarReturn(user, librarian, exemplar);
+                    exReturn.setExpiryDateFromIssue(exemplarIssue.getExpiryDate());
+                    exemplarReturnRepo.save(exReturn);
                     exemplar.setIssued(false);
                     exemplarRepo.save(exemplar);
                 } else {
