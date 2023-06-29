@@ -23,26 +23,6 @@ public class JavaKursaDarbsApplication {
 
 			@Override
 			public void run(String... args) throws Exception {
-				
-				/*Author au1 = new Author("Vasiliy", "Uljanov", LocalDate.of(1957, 5, 20), LocalDate.of(2010, 4, 10));
-				Author au2 = new Author("Elena", "Letuchaya", LocalDate.of(1949, 6, 3), LocalDate.of(2000, 3, 23));
-				auRepo.save(au1);
-				auRepo.save(au2);
-				
-				Librarian lb2 = new Librarian("Galina", "Liepina");
-				Librarian lb3 = new Librarian("Ivans", "Putilov");
-				lbRepo.save(lb2);
-				lbRepo.save(lb3);
-				
-				User u4 = new User("Olegs", "Volkovs", "ole9@gmail.com", "olvol2015");
-				User u5 = new User("Inessa", "Ziedina", "inesl23@gmail.com", "inezie441");
-				usRepo.save(u4);
-				usRepo.save(u5);
-				
-				Book bk6 = new Book("Gore ot uma", au1, BookGenre.Classic, "Hello", 1995, 10);
-				Book bk7 = new Book("Master i Margarita", au2, BookGenre.Romantic, "Hello", 1895, 20);
-				bkRepo.save(bk6);
-				bkRepo.save(bk7);*/
 
 				// Authors
 				Author author1 = new Author("Jane", "Austen", LocalDate.of(1775, 12, 16), LocalDate.of(1817, 7, 18));

@@ -45,7 +45,7 @@ public class Book {
     @Max(100)
     private int quantity;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "book")
     private Collection<Exemplar> exemplars;
 
     public Book(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) {

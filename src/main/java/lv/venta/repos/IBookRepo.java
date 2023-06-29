@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public interface IBookRepo extends CrudRepository<Book, Long>{
 
-    ArrayList<Book> findAllByAuthorSurname(String surname);
+    ArrayList<Book> findByAuthorSurname(String surname);
 
-    ArrayList<Book> findAllByTitle(String title);
+    ArrayList<Book> findByTitle(String title);
 
 	Book findByIdb(long idb);
 

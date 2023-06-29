@@ -25,6 +25,31 @@ public class Exemplar {
 
     @OneToOne(mappedBy = "exemplar", cascade = CascadeType.REMOVE)
     private ExemplarIssue exemplarIssue;
+    
+    /*
+     * pamatojoties uz kļūdu, ka objekts 'title' ir saistīts ar klasi 'Exemplar', 
+     * pievienojot šīs koda rindas, mēs it kā pienemam šo objektu 'title' no klases 'Book'.
+     */
+    
+    public String getTitle() {
+        return book != null ? book.getTitle() : null;
+    }
+    
+    public Author getAuthor() {
+        return book != null ? book.getAuthor() : null;
+    }
+    
+    public String getDescription() {
+        return book != null ? book.getDescription() : null;
+    }
+    
+    public int getWritingYear() {
+        return book != null ? book.getWritingYear() : null;
+    }
+    
+    public int getQuantity() {
+        return book != null ? book.getQuantity() : null;
+    }
 
     @OneToOne(mappedBy = "exemplar", cascade = CascadeType.REMOVE)
     private ExemplarReturn exemplarReturn;

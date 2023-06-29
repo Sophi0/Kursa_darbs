@@ -9,6 +9,9 @@ import lv.venta.services.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,13 +27,13 @@ public class UserServiceImpl implements UserService {
     private IUserRepo userRepo;
 
     @Override
-    public ArrayList<Book> selectAllBooksByAuthorName(String surname) {
-        return bookRepo.findAllByAuthorSurname(surname);
+    public ArrayList<Book> selectAllBooksByAuthorSurname(String surname) {
+        return bookRepo.findByAuthorSurname(surname);
     }
 
     @Override
     public ArrayList<Book> selectAllBooksByBookTitle(String title) {
-        return bookRepo.findAllByTitle(title);
+        return bookRepo.findByTitle(title);
     }
 
     @Override
@@ -58,7 +61,7 @@ public class UserServiceImpl implements UserService {
         float summa = 0f;
         if(userId > 0) {
             User user = userRepo.findByIdp(userId);
-            ArrayList<ExemplarIssue> userExemplarIssues = (ArrayList<ExemplarIssue>) user.getExemplarIssue();
+            Collection<ExemplarIssue> userExemplarIssues = user.getExemplarIssue();
             for(ExemplarIssue exemplarIss : userExemplarIssues){
                 LocalDate date1 = exemplarIss.getExpiryDate().toLocalDate();
                 ExemplarReturn exReturn = exemplarReturnRepo.findByExemplarIdex(exemplarIss.getExemplar().getIdex());

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 @Service
 public interface UserService {
-    ArrayList<Book> selectAllBooksByAuthorName(String surname);
+    ArrayList<Book> selectAllBooksByAuthorSurname(String surname);
     ArrayList<Book> selectAllBooksByBookTitle(String title);
     ArrayList<Book> selectAllBooks();
     ArrayList<Exemplar> selectAllUserBooks(long userId);
