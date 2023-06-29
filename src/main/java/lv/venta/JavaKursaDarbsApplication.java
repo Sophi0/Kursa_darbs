@@ -143,12 +143,6 @@ public class JavaKursaDarbsApplication {
 						bkRepo.save(book);
 					}
 				}
-				
-				ExemplarIssue exi8 = new ExemplarIssue(user2, librarian3, exRepo.findByIdex(5));
-				exiRepo.save(exi8);
-
-				ExemplarReturn exRet9 = new ExemplarReturn(user8, librarian5, exRepo.findByIdex(2));
-				exRetRepo.save(exRet9);
 
 
 			}
