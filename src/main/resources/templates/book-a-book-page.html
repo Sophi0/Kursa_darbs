@@ -30,15 +30,18 @@
                 <th>Publication Year</th>
                 <th>Book Genre</th>
                 <th>Description</th>
+                <th>Click to book a book!</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="temp : ${bookedBooks}">
-              	<td th:text="${temp.getBook().getTitle()}"></td>
+            <tr th:each="temp : ${book}">
+              	<td th:text="${temp.getBook().getTitle()}"></td> 
                 <td th:text="${temp.getBook().getAuthor().getName()} + ' ' + ${temp.getBook().getAuthor().getSurname()}"></td>
                 <td th:text="${temp.getBook().getWritingYear()}"></td>
                 <td th:text="${temp.getBook().getGenre()}"></td>
                 <td th:text="${temp.getBook().getDescription()}"></td>
+                <td><form method="POST" th:action="@{/user/bookAbook/__${temp.getIdex()}__/__${idp}__}">
+					<button type="submit" name="submit" value="value" class="link-button">Rezervet</button></form></td>
             </tr>
         </tbody>
     </table>

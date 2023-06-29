@@ -20,7 +20,7 @@ public class Book {
     private long idb;
 
     @Column(name="title")
-    @Size(min=3, max=40)
+    @Size(min=3, max=400)
     @Pattern(regexp ="^[A-Z][a-zA-Z ]{0,39}$", message = "1.burtam jabut lielam, tikai latinu burti, max 40 simboli")
     private String title;
 
@@ -29,7 +29,7 @@ public class Book {
     private BookGenre genre;
 
     @Column(name="description")
-    @Size(max=40)
+    @Size(max=500)
     @Pattern(regexp ="^[A-Z][a-zA-Z ]{0,39}$", message = "1.burtam jabut lielam, tikai latinu burti, max 40 simboli")
     private String description;
 
@@ -40,7 +40,7 @@ public class Book {
 
     @Column(name="quantity")
     @Min(0)
-    @Max(100)
+    @Max(1000)
     private int quantity;
 
     @OneToMany(mappedBy = "book")

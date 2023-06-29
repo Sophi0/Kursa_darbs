@@ -11,6 +11,7 @@ public interface UserService {
     ArrayList<Book> selectAllBooksByBookTitle(String title);
     ArrayList<Book> selectAllBooks();
     ArrayList<Exemplar> selectAllUserBooks(long userId);
+    ArrayList<Exemplar> selectAllExemplars();
     float finesForAllBooks(long userId) throws Exception;
     boolean bookBook(long idb, long idp) throws Exception;
 	User retrieveUserById(long id) throws Exception;

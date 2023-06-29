@@ -11,4 +11,6 @@ public interface IExemplarRepo extends CrudRepository<Exemplar, Long>{
     Exemplar findByIdex(long exemplarId);
 
     ArrayList<Exemplar> findByBookTitle(String title);
+
+	ArrayList<Exemplar> findByIsIssued(boolean b);
 }

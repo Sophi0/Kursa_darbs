@@ -9,9 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.validation.Valid;
 import lv.venta.models.User;
 import lv.venta.services.UserService;
 
@@ -89,34 +92,31 @@ public class UserController {
 		}
     }
     
-    //NOT WORKING
-   /*  
-    @GetMapping(value = "/user/bookAbook/{id}/{idp}")	//localhost:8080/user/bookAbook/{id}/{id}
-    public String getBookABookById(@PathVariable("id") long idb, @PathVariable("id") long idp, Model model) {
+     
+    @GetMapping(value = "/user/bookAbook/{idp}")	//localhost:8080/user/bookAbook/{id}
+    public String getBookABookById(@PathVariable("idp") long idp, Model model) {
     	try {
-    		   userService.bookBook(idb, idp);
-    		   return "redirect:/user/showAll/book";
+    		model.addAttribute("book", userService.selectAllExemplars());
+    		model.addAttribute("idp", idp);
+    		return "book-a-book-page";
     	}
     	catch (Exception e) {
-	 model.addAttribute("msg", e.getMessage());
-		return "error-page";
-}
+    		model.addAttribute("msg", e.getMessage());
+    		return "error-page";
+    	}
     }
-    
+
    
     @PostMapping("/user/bookAbook/{id}/{idp}")
-    public String postBookABookById(@PathVariable("id") long idb, @PathVariable("id") long idp, @Valid Book book, BindingResult result) {
-    	if (!result.hasErrors()) {
-            try {
-            	userService.bookBook(idb, idp);
-            	
-                return "redirect:/user/showAll/book/" + idb + "/" + idp;
-            } catch (Exception e) {
-                return "redirect:/error-page";
-            }
-        } else return "book-a-book-page";
+    public String postBookABookById(@PathVariable("id") long idb, @PathVariable("idp") long idp) {
+    	try {
+    		userService.bookBook(idb, idp);
+    		return "redirect:/user/showAll/userBooks/" + idp;
+    	} catch (Exception e) {
+    		return "redirect:/error-page";
+    	}
     }
- */   
+
     
 
 }

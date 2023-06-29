@@ -109,4 +109,9 @@ public class UserServiceImpl implements UserService {
 	public ArrayList<User> selectAllUsers() {
 		 return (ArrayList<User>) userRepo.findAll();
 	}
+
+	@Override
+	public ArrayList<Exemplar> selectAllExemplars() {
+		return exemplarRepo.findByIsIssued(false);
+	}
 }
