@@ -45,6 +45,14 @@ public class LibrarianServiceImpl implements LibrarianService {
     public ArrayList<User> allUsers() {
         return (ArrayList<User>) userRepo.findAll();
     }
+    @Override
+    public ArrayList<ExemplarIssue> allIssues() {
+        return (ArrayList<ExemplarIssue>) exemplarIssueRepo.findAll();
+    }
+    @Override
+    public ArrayList<ExemplarReturn> allReturns() {
+        return (ArrayList<ExemplarReturn>) exemplarReturnRepo.findAll();
+    }
 
     //INSERT FUNCTIONS
     @Override

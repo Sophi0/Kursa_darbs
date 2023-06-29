@@ -73,6 +73,16 @@ public class LibrarianController {
             return "error-page";
         }
     }
+    @GetMapping("/librarian/all-issues") //localhost:8080/librarian/all-issues
+    public String getAllIssues(Model model){
+        model.addAttribute("issue", librarianService.allIssues());
+        return "librarian-all-issues-page";
+    }
+    @GetMapping("/librarian/all-returns") //localhost:8080/librarian/all-returns
+    public String getAllReturns(Model model){
+        model.addAttribute("return", librarianService.allReturns());
+        return "librarian-all-returns-page";
+    }
     //BOOK - ADD, UPDATE, DELETE (BOOK & EXEMPLAR)
     @GetMapping("/librarian/add-book") //localhost:8080/librarian/add-book
     public String getAddNewBook(Model model) {
@@ -289,7 +299,29 @@ public class LibrarianController {
             return "error-page";
         }
     }
-
+    @GetMapping("/librarian/give-book/{userId}/{librarianId}/{exemplarId}") //localhost:8080/librarian/delete-author/name-and-surname/{name}/{surname}
+    public String getGiveBook(@PathVariable("userId") long userId, @PathVariable("librarianId") long librarianId, @PathVariable("exemplarId") long exemplarId, Model model){
+        try {
+            librarianService.giveBook(userId, librarianId, exemplarId);
+            model.addAttribute("issue", librarianService.allIssues());
+            return "librarian-all-issues-page";
+        } catch (Exception e){
+            model.addAttribute("packetError", e.getMessage());
+            return "error-page";
+        }
+    }
+    //TODO remake give book and return as add function
+    @GetMapping("/librarian/return-book/{userId}/{librarianId}/{exemplarId}") //localhost:8080/librarian/delete-author/name-and-surname/{name}/{surname}
+    public String getReturnBook(@PathVariable("userId") long userId, @PathVariable("librarianId") long librarianId, @PathVariable("exemplarId") long exemplarId, Model model){
+        try {
+            librarianService.returnBook(userId, librarianId, exemplarId);
+            model.addAttribute("return", librarianService.allReturns());
+            return "librarian-all-returns-page";
+        } catch (Exception e){
+            model.addAttribute("packetError", e.getMessage());
+            return "error-page";
+        }
+    }
 
 
 }

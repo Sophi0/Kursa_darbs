@@ -13,6 +13,8 @@ public interface LibrarianService {
     ArrayList<Exemplar> allExemplars();
     ArrayList<Author> allAuthors();
     ArrayList<User> allUsers();
+    ArrayList<ExemplarIssue> allIssues();
+    ArrayList<ExemplarReturn> allReturns();
 
     void insertNewBook(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) throws Exception;
     Book retrieveBookById(long id) throws Exception;
