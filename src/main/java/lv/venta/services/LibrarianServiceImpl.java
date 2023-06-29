@@ -284,18 +284,25 @@ public class LibrarianServiceImpl implements LibrarianService {
         } else throw new Exception("Incorrect username");
     }
     @Override
-    public void giveBook(long userId, long librarianId, long exemplarId) throws Exception {
-        if(userId > 0 && librarianId > 0 && exemplarId > 0){
-            if(userRepo.existsById(userId) && librarianRepo.existsById(librarianId) && exemplarRepo.existsById(exemplarId)){
+    public void giveBook(long userId, long librarianId, long bookId) throws Exception {
+        if(userId > 0 && librarianId > 0 && bookId > 0){
+            if(userRepo.existsById(userId) && librarianRepo.existsById(librarianId) && exemplarRepo.existsById(bookId)){
                 User user = userRepo.getOne(userId);
                 Librarian librarian = librarianRepo.getOne(librarianId);
-                Exemplar exemplar = exemplarRepo.getOne(exemplarId);
-                if(!exemplar.isIssued()){
-                    ExemplarIssue exemplarIssue = new ExemplarIssue(user, librarian, exemplar);
-                    exemplarIssueRepo.save(exemplarIssue);
-                    exemplar.setIssued(true);
-                    exemplarRepo.save(exemplar);
-                } else throw new Exception("Exemplar is already issued");
+                ArrayList<Exemplar> exemplarList = exemplarRepo.findAllByBookIdb(bookId);
+                boolean success = false;
+                for(Exemplar exemplar : exemplarList){
+                    if(!exemplar.isIssued()){
+                        ExemplarIssue exemplarIssue = new ExemplarIssue(user, librarian, exemplar);
+                        exemplarIssueRepo.save(exemplarIssue);
+                        exemplar.setIssued(true);
+                        exemplarRepo.save(exemplar);
+                        success = true;
+                        break;
+                    }
+                }
+                if(!success)
+                    throw new Exception("No available exemplars");
             } else throw new Exception("User / librarian / exemplar doesn't exist");
         } else throw new Exception("Incorrect id");
     }

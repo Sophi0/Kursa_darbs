@@ -40,7 +40,7 @@ public interface LibrarianService {
 
     void deleteAuthorById(long authorId) throws Exception;
     void deleteAuthorByNameAndSurname(String name, String surname) throws Exception;
-    void giveBook(long userId, long librarianId, long exemplarId) throws Exception;
+    void giveBook(long userId, long librarianId, long bookId) throws Exception;
 
     void returnBook(long userId, long librarianId, long exemplarId) throws Exception;
 

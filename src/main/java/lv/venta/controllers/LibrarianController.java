@@ -308,18 +308,15 @@ public class LibrarianController {
         return "librarian-give-book-page";
     }
     @PostMapping("/librarian/give-book")
-    public String postGiveBook(@Valid ExemplarIssue issue, BindingResult result, @RequestParam("userId") Long userId,
-                               @RequestParam("librarianId") Long librarianId, @RequestParam("exemplarId") Long bookId) {
-        if(!result.hasErrors()){
-            try {
-                librarianService.giveBook(userId, librarianId, bookId);
-                return "redirect:/librarian/all-issues";
-            } catch (Exception e){
-                return "redirect:/error";
-            }
-        } else {
-            return "librarian-give-book-page";
+    public String postGiveBook(@RequestParam("userId") Long userId,
+                               @RequestParam("librarianId") Long librarianId, @RequestParam("bookId") Long bookId) {
+        try {
+            librarianService.giveBook(userId, librarianId, bookId);
+            return "redirect:/librarian/all-issues";
+        } catch (Exception e){
+            return "redirect:/error";
         }
+
     }
     @GetMapping("/librarian/return-book") //localhost:8080/librarian/add-user
     public String getReturnBook(Model model){
@@ -328,7 +325,6 @@ public class LibrarianController {
         model.addAttribute("librarians", librarianService.allLibrarians());
         return "librarian-return-book-page";
     }
-
     @PostMapping("/librarian/return-book")
     public String postReturnBook(@Valid ExemplarReturn exemplarReturn, BindingResult result, @RequestParam("userId") Long userId,
                                  @RequestParam("librarianId") Long librarianId) {
