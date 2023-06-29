@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class LibrarianController {
     @Autowired
     private LibrarianService librarianService;
-    @Autowired
-    private UserService userService;
 
     @GetMapping("/error") //localhost:8080/error
     public String getError(Model model){
@@ -154,7 +152,7 @@ public class LibrarianController {
         try {
             librarianService.deleteBookById(id);
             model.addAttribute("book", librarianService.allBooks());
-            return "librarian-all-books-page";
+            return "redirect:/librarian/all-books";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
@@ -166,7 +164,7 @@ public class LibrarianController {
         try {
             librarianService.deleteExemplarById(id);
             model.addAttribute("exemplar", librarianService.allExemplars());
-            return "librarian-all-exemplars-page";
+            return "redirect:/librarian/all-exemplars";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
@@ -219,7 +217,7 @@ public class LibrarianController {
         try {
             librarianService.deleteUserById(id);
             model.addAttribute("user", librarianService.allUsers());
-            return "librarian-all-users-page";
+            return "redirect:/librarian/all-users";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
@@ -230,7 +228,7 @@ public class LibrarianController {
         try {
             librarianService.deleteUserByUsername(username);
             model.addAttribute("user", librarianService.allUsers());
-            return "librarian-all-users-page";
+            return "redirect:/librarian/all-users";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
@@ -284,7 +282,7 @@ public class LibrarianController {
         try {
             librarianService.deleteAuthorById(id);
             model.addAttribute("author", librarianService.allAuthors());
-            return "librarian-all-authors-page";
+            return "redirect:/librarian/all-authors";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
@@ -295,7 +293,7 @@ public class LibrarianController {
         try {
             librarianService.deleteAuthorByNameAndSurname(name, surname);
             model.addAttribute("author", librarianService.allAuthors());
-            return "librarian-all-authors-page";
+            return "redirect:/librarian/all-authors";
         } catch (Exception e){
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
