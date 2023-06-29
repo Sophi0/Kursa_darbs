@@ -14,7 +14,5 @@ public interface IExemplarRepo extends CrudRepository<Exemplar, Long>{
 
     ArrayList<Exemplar> findAllByBookIdb(long idb);
 
-    void deleteByIdex(long idex);
-
     Exemplar getOne(long exemplarId);
 }

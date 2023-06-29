@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Book a Book</title>
+    <title>Book Page</title>
 </head>
 <style>
-    table {
+     table {
         border-collapse: collapse;
         width: 100%;
     }
@@ -21,26 +20,31 @@
     }
 </style>
 <body>
-    <h1>Book a Book</h1>
+    <h1>Book Page</h1>
     
-    <form action="/user/bookAbook/{id}/{idp}" method="post" th:object="${book}">
-        
-        <label for="title">Title:</label>
-        <input type="text" id="title" th:field="*{title}" required/>
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-        
-        <label for="author">Author:</label>
-        <input type="text" id="author.name" th:field="*{author.name}" required/>
-        <span th:if="${#fields.hasErrors('author.name')}" th:errors="*{author.name}"></span>
-        
-        <input type="text" id="author.surname" th:field="*{author.surname}" required/>
-        <span th:if="${#fields.hasErrors('author.surname')}" th:errors="*{author.surname}"></span>
-        
-        <label for="writingYear">Publication Year:</label>
-        <input type="text" id="writingYear" th:field="*{writingYear}" required/>
-        <span th:if="${#fields.hasErrors('writingYear')}" th:errors="*{writingYear}"></span>
-        
-        <button type="submit">Submit</button>
-    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publication Year</th>
+                <th>Book Genre</th>
+                <th>Description</th>
+                <th>Click to book a book!</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="temp : ${book}">
+              	<td th:text="${temp.getBook().getTitle()}"></td> 
+                <td th:text="${temp.getBook().getAuthor().getName()} + ' ' + ${temp.getBook().getAuthor().getSurname()}"></td>
+                <td th:text="${temp.getBook().getWritingYear()}"></td>
+                <td th:text="${temp.getBook().getGenre()}"></td>
+                <td th:text="${temp.getBook().getDescription()}"></td>
+                <td><form method="POST" th:action="@{/user/bookAbook/__${temp.getIdex()}__/__${idp}__}">
+					<button type="submit" name="submit" value="value" class="link-button">Rezervet</button></form></td>
+            </tr>
+        </tbody>
+    </table>
+    
 </body>
 </html>

@@ -40,10 +40,19 @@ public class UserServiceImpl implements UserService {
     public ArrayList<Book> selectAllBooks() {
         return (ArrayList<Book>) bookRepo.findAll();
     }
+    
+    @Override
+    public User retrieveUserById(long id) throws Exception {
+        if(id > 0){
+            if(userRepo.existsById(id)){
+                return userRepo.findByIdp(id);
+            } else throw new Exception("There is no book with this id");
+        } else throw new Exception("Invalid input id");
+    }
 
     @Override
     public ArrayList<Exemplar> selectAllUserBooks(long userId) {
-        ArrayList<Exemplar> usersBooks = new ArrayList();
+        ArrayList<Exemplar> usersBooks = new ArrayList<>();
         for(ExemplarIssue exemplarIssueTemp : exemplarIssueRepo.findAllByUserIdp(userId)){
             usersBooks.add(exemplarIssueTemp.getExemplar());
         }
@@ -96,4 +105,14 @@ public class UserServiceImpl implements UserService {
     		throw new Exception("Incorrect id");
     	}
     }
+
+	@Override
+	public ArrayList<User> selectAllUsers() {
+		 return (ArrayList<User>) userRepo.findAll();
+	}
+
+	@Override
+	public ArrayList<Exemplar> selectAllExemplars() {
+		return exemplarRepo.findByIsIssued(false);
+	}
 }

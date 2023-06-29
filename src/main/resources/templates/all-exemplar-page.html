@@ -25,6 +25,8 @@
     <table>
         <thead>
             <tr>
+				<th>User ID</th>
+				<th>Username</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Publication Year</th>
@@ -36,12 +38,14 @@
         </thead>
         <tbody>
             <tr th:each="temp : ${book}">
-                <td th:text="${temp.getTitle()}"></td>
-                <td th:text="${temp.getAuthor().getName()} + ' ' + ${temp.getAuthor().getSurname()}"></td>
-                <td th:text="${temp.getWritingYear()}"></td>
-                <td th:text="${temp.getGenre()}"></td>
-                <td th:text="${temp.getDescription()}"></td>
-                <td th:text="${temp.getQuantity()}"></td>
+				<td th:text="${user.getIdp}"</td>
+				<td th:text="${user.getUsername}"</td>
+                <td th:text="${temp.getBook().getTitle()}"></td>
+                <td th:text="${temp.getBook().getAuthor().getName()} + ' ' + ${temp.getBook().getAuthor().getSurname()}"></td>
+                <td th:text="${temp.getBook().getWritingYear()}"></td>
+                <td th:text="${temp.getBook().getGenre()}"></td>
+                <td th:text="${temp.getBook().getDescription()}"></td>
+                <td th:text="${temp.getBook().getQuantity()}"></td>
             </tr>
         </tbody>
     </table>

@@ -23,15 +23,12 @@ public class Book {
     @Pattern(regexp ="[A-Z][\\w\\W]{0,59}", message = "1st letter must be uppercase, max 60 symbols")
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Author author;
-
     @Column(name="genre")
     @NotNull
     private BookGenre genre;
 
     @Column(name="description")
+    @Size(max=500)
     @Pattern(regexp ="[A-Z][\\w\\W]{0,99}", message = "1st letter must be uppercase, max 100 symbols")
     private String description;
 
@@ -42,11 +39,15 @@ public class Book {
 
     @Column(name="quantity")
     @Min(0)
-    @Max(100)
+    @Max(1000)
     private int quantity;
 
     @OneToMany(mappedBy = "book")
     private Collection<Exemplar> exemplars;
+    
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
 
     public Book(String title, Author author, BookGenre genre, String description, int writingYear, int quantity) {
         this.title = title;
