@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Return book</title>
+</head>
+<body>
+<form action="#" th:action="@{/librarian/return-book}" th:object="${return}" method="post">
+    <table>
+        <tr>
+            <td>User:</td>
+            <td>
+                <select name="userId">
+                    <option value="">-- Select User --</option>
+                    <option th:each="user : ${users}" th:value="${user.idp}" th:text="${user.name + ' ' + user.surname}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Librarian:</td>
+            <td>
+                <select name="librarianId">
+                    <option value="">-- Select Librarian --</option>
+                    <option th:each="librarian : ${librarians}" th:value="${librarian.idp}" th:text="${librarian.name + ' ' + librarian.surname}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Exemplar ID:</td>
+            <td><input type="text" name="exemplarId" /></td>
+            <td th:if="${#fields.hasErrors('exemplarId')}" th:errors="*{exemplarId}"> </td>
+        </tr>
+
+        <tr>
+            <td><button type="submit">Return Book</button></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
