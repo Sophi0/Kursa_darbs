@@ -30,18 +30,21 @@
         <th>Exemplar id</th>
         <th>Exemplar title</th>
         <th>Exemplar author</th>
+        <th>Expiry date</th>
+        <th>When is returned</th>
     </tr>
     <th:block th:each="temp : ${return}">
         <tr>
             <td th:text="${temp.getIdr()}"></td>
-            <td th:text="${temp.getUser().getName()} + ' ' + ${temp.getUser().getSurname()}"> </td>
-            <td th:text="${temp.getLibrarian().getName()} + ' ' + ${temp.getLibrarian().getSurname()}"> </td>
+            <td th:text="${temp.getUser().getName()} + ' ' + ${temp.getUser().getSurname()}"></td>
+            <td th:text="${temp.getLibrarian().getName()} + ' ' + ${temp.getLibrarian().getSurname()}"></td>
             <td th:text="${temp.getExemplar().getIdex()}"></td>
-            <td th:text="${temp.getExemplar().getTitle()}"></td>
-            <td th:text="${temp.getExemplar().getAuthor().getName()} + ' ' + ${temp.getExemplar().getAuthor().getSurname()}"></td>
+            <td th:text="${temp.getExemplar().getBook().getTitle()}"></td>
+            <td th:text="${temp.getExemplar().getBook().getAuthor().getName()} + ' ' + ${temp.getExemplar().getBook().getAuthor().getSurname()}"></td>
+            <td th:if="${exemplarIssue}" th:text="${#temporals.format(exemplarIssue.expiryDate, 'dd-MM-yyyy HH:mm')}"></td>
+            <td th:text="${#temporals.format(temp.getDateBookIsReturned(), 'dd-MM-yyyy HH:mm')}"></td>
         </tr>
     </th:block>
 </table>
-
 </body>
 </html>
