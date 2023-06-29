@@ -46,6 +46,11 @@ public class LibrarianServiceImpl implements LibrarianService {
         return (ArrayList<User>) userRepo.findAll();
     }
     @Override
+    public ArrayList<Librarian> allLibrarians() {
+        return (ArrayList<Librarian>) librarianRepo.findAll();
+    }
+
+    @Override
     public ArrayList<ExemplarIssue> allIssues() {
         return (ArrayList<ExemplarIssue>) exemplarIssueRepo.findAll();
     }
@@ -112,7 +117,9 @@ public class LibrarianServiceImpl implements LibrarianService {
             } else throw new Exception("There is no author with this surname");
         } else throw new Exception("Invalid input surname");
     }
-
+    public ExemplarIssue getExemplarIssueByExemplarId(long exemplarId) {
+        return exemplarIssueRepo.findByExemplarIdex(exemplarId);
+    }
     //UPDATE
     @Override
     public void updateAuthor(long authorId, String name, String surname, LocalDate dateOfBirth, LocalDate dateOfDeath) throws Exception {
@@ -184,6 +191,7 @@ public class LibrarianServiceImpl implements LibrarianService {
             authorRepo.deleteByIdp(authorId);
         } else throw new Exception("Incorrect id");
     }
+
     @Override
     @Transactional
     public void deleteAuthorByNameAndSurname(String name, String surname) throws Exception {
@@ -278,27 +286,44 @@ public class LibrarianServiceImpl implements LibrarianService {
     @Override
     public void giveBook(long userId, long librarianId, long exemplarId) throws Exception {
         if(userId > 0 && librarianId > 0 && exemplarId > 0){
-            User user = userRepo.findByIdp(userId);
-            Librarian librarian = librarianRepo.findByIdp(librarianId);
-            Exemplar exemplar = exemplarRepo.findByIdex(exemplarId);
-            exemplarIssueRepo.save(new ExemplarIssue(user, librarian, exemplar));
-            userRepo.save(user);
-            librarianRepo.save(librarian);
-            exemplarRepo.save(exemplar);
+            if(userRepo.existsById(userId) && librarianRepo.existsById(librarianId) && exemplarRepo.existsById(exemplarId)){
+                User user = userRepo.getOne(userId);
+                Librarian librarian = librarianRepo.getOne(librarianId);
+                Exemplar exemplar = exemplarRepo.getOne(exemplarId);
+                if(!exemplar.isIssued()){
+                    ExemplarIssue exemplarIssue = new ExemplarIssue(user, librarian, exemplar);
+                    exemplarIssueRepo.save(exemplarIssue);
+                    exemplar.setIssued(true);
+                    exemplarRepo.save(exemplar);
+                } else throw new Exception("Exemplar is already issued");
+            } else throw new Exception("User / librarian / exemplar doesn't exist");
         } else throw new Exception("Incorrect id");
     }
     @Override
     public void returnBook(long userId, long librarianId, long exemplarId) throws Exception {
-        if(userId > 0 && librarianId > 0 && exemplarId > 0){
-            User user = userRepo.findByIdp(userId);
-            Librarian librarian = librarianRepo.findByIdp(librarianId);
-            Exemplar exemplar = exemplarRepo.findByIdex(exemplarId);
-            exemplarReturnRepo.save(new ExemplarReturn(user, librarian, exemplar));
-            userRepo.save(user);
-            librarianRepo.save(librarian);
-            exemplarRepo.save(exemplar);
-        } else throw new Exception("Incorrect id");
+        if (userId > 0 && librarianId > 0 && exemplarId > 0) {
+            if (userRepo.existsById(userId) && librarianRepo.existsById(librarianId) && exemplarRepo.existsById(exemplarId)) {
+                User user = userRepo.getOne(userId);
+                Librarian librarian = librarianRepo.getOne(librarianId);
+                Exemplar exemplar = exemplarRepo.getOne(exemplarId);
+
+                ExemplarIssue exemplarIssue = exemplarIssueRepo.findByUserAndLibrarianAndExemplar(user, librarian, exemplar);
+                if (exemplarIssue != null) {
+                    exemplarReturnRepo.save(new ExemplarReturn(user, librarian, exemplar));
+//                    exemplarIssueRepo.delete(exemplarIssue);
+                    exemplar.setIssued(false);
+                    exemplarRepo.save(exemplar);
+                } else {
+                    throw new Exception("Exemplar issue not found");
+                }
+            } else {
+                throw new Exception("User / librarian / exemplar doesn't exist");
+            }
+        } else {
+            throw new Exception("Incorrect id");
+        }
     }
+
     @Override
     public void updateExpiringDate(long exemplarIssueId, LocalDateTime newDateTime) throws Exception {
         if(exemplarIssueId > 0) {
