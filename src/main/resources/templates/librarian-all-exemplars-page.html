@@ -23,6 +23,16 @@
 <body>
 <h1>All exemplars</h1>
 <table>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Description</th>
+        <th>Writing year</th>
+        <th>Quantity</th>
+        <th>Is issued</th>
+    </tr>
     <th:block th:each="temp : ${exemplar}">
         <tr>
             <td th:text="${temp.getIdex()}"></td>
@@ -32,6 +42,7 @@
             <td th:text="${temp.getBook().getDescription()}"></td>
             <td th:text="${temp.getBook().getWritingYear()}"></td>
             <td th:text="${temp.getBook().getQuantity()} + 'x'"></td>
+            <td th:text="${temp.isIssued()}"></td>
         </tr>
     </th:block>
 </table>
