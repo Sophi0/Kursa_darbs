@@ -1,7 +1,5 @@
 package lv.venta.controllers;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,9 +52,6 @@ public class UserController {
 	}
 
     //WORKING
-	//Message from Rebeka - here we need to use another html view file (all-exemplars - for example)
-	//because users books are exemplars, not books -> the program does not understand, what is genre and other parameters
-	//here I see comment 'WORKING', but when I run it, it does not work
     @GetMapping(value = "/user/showAll/userBooks/{id}")	//localhost:8080/user/showAll/userBooks/{id}
 	public String getAllUserBooks(Model model, @PathVariable("id") long idp) {
 		try {
