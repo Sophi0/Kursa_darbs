@@ -22,6 +22,10 @@ public class LibrarianController {
         model.addAttribute("packetError", "Error");
         return "error-page";
     }
+    @GetMapping("/librarian/dashboard") //localhost:8080/librarian/dashboard
+    public String getLibrarianDashboard() {
+        return "librarian-functions";
+    }
     //PAGES WITH ALL
     @GetMapping("/librarian/all-books") //localhost:8080/librarian/all-books
     public String getAllBooks(Model model){
