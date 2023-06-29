@@ -1,1 +1,0 @@
-1) After deleting, web address is wrong - return -> redirect
