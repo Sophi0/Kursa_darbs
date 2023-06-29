@@ -5,45 +5,92 @@
     <title>All books</title>
 </head>
 <style>
+    .container {
+        position: relative;
+    }
+    .button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    .button1 {
+        position: absolute;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+    .button2 {
+        background-color: transparent;
+        color: black;
+        padding: 5px 10px 5px 0;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;
     }
-
     th, td {
         padding: 8px;
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
-
     tr:hover {
         background-color: #f5f5f5;
     }
+    h1 {
+        margin-bottom: 20px;
+    }
 </style>
 <body>
-<h1>All books</h1>
-<table>
-    <tr>
-        <th>Book id</th>
-        <th>Title</th>
-        <th>Author name and surname</th>
-        <th>Genre</th>
-        <th>Description</th>
-        <th>Writing year</th>
-        <th>Quantity</th>
-    </tr>
-    <th:block th:each="temp : ${book}">
+<div class="container">
+    <h1>All books</h1>
+    <a href="/librarian/dashboard" class="button">Dashboard</a>
+    <table>
         <tr>
-            <td th:text="${temp.getIdb()}"></td>
-            <td th:text="${temp.getTitle()}"></td>
-            <td th:text="${temp.getAuthor().getName()} + ' ' + ${temp.getAuthor().getSurname()}"> </td>
-            <td th:text="${temp.getGenre()}"></td>
-            <td th:text="${temp.getDescription()}"></td>
-            <td th:text="${temp.getWritingYear()}"></td>
-            <td th:text="${temp.getQuantity()} + 'x'"></td>
+            <th>Book id</th>
+            <th>Title</th>
+            <th>Author name and surname</th>
+            <th>Genre</th>
+            <th>Description</th>
+            <th>Writing year</th>
+            <th>Quantity</th>
+            <th>Actions</th>
         </tr>
-    </th:block>
-</table>
-
+        <th:block th:each="temp : ${book}">
+            <tr>
+                <td th:text="${temp.getIdb()}"></td>
+                <td th:text="${temp.getTitle()}"></td>
+                <td th:text="${temp.getAuthor().getName()} + ' ' + ${temp.getAuthor().getSurname()}"> </td>
+                <td th:text="${temp.getGenre()}"></td>
+                <td th:text="${temp.getDescription()}"></td>
+                <td th:text="${temp.getWritingYear()}"></td>
+                <td th:text="${temp.getQuantity()} + 'x'"></td>
+                <td>
+                    <a th:href="@{'/librarian/update-book/' + ${temp.getIdb()}}" class="button2">Update</a>
+                    <a th:href="@{'/librarian/delete-book/' + ${temp.getIdb()}}" class="button2">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+    <a href="/librarian/add-book" class="button1">Add</a>
+</div>
 </body>
 </html>

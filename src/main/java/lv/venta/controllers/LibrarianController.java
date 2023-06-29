@@ -32,17 +32,6 @@ public class LibrarianController {
         model.addAttribute("book", librarianService.allBooks());
         return "librarian-all-books-page";
     }
-    @GetMapping("/librarian/all-books/{id}") //localhost:8080/librarian/all-books/2
-    public String getBookById(@PathVariable("id") long id, Model model){
-        try {
-            Book book = librarianService.retrieveBookById(id);
-            model.addAttribute("book", book);
-            return "librarian-one-book-page";
-        } catch (Exception e){
-            model.addAttribute("packetError", e.getMessage());
-            return "error-page";
-        }
-    }
     @GetMapping("/librarian/all-exemplars") //localhost:8080/librarian/all-exemplars
     public String getAllExemplars(Model model){
         model.addAttribute("exemplar", librarianService.allExemplars());
@@ -53,32 +42,10 @@ public class LibrarianController {
         model.addAttribute("author", librarianService.allAuthors());
         return "librarian-all-authors-page";
     }
-    @GetMapping("/librarian/all-authors/{id}") //localhost:8080/librarian/all-users/2
-    public String getAuthorById(@PathVariable("id") long id, Model model){
-        try {
-            Author author = librarianService.retrieveAuthorById(id);
-            model.addAttribute("author", author);
-            return "librarian-one-author-page";
-        } catch (Exception e){
-            model.addAttribute("packetError", e.getMessage());
-            return "error-page";
-        }
-    }
     @GetMapping("/librarian/all-users") //localhost:8080/librarian/all-users
     public String getAllUsers(Model model){
         model.addAttribute("user", librarianService.allUsers());
         return "librarian-all-users-page";
-    }
-    @GetMapping("/librarian/all-users/{id}") //localhost:8080/librarian/all-users/2
-    public String getUserById(@PathVariable("id") long id, Model model){
-        try {
-            User user = librarianService.retrieveUserById(id);
-            model.addAttribute("user", user);
-            return "librarian-one-user-page";
-        } catch (Exception e){
-            model.addAttribute("packetError", e.getMessage());
-            return "error-page";
-        }
     }
     @GetMapping("/librarian/all-issues") //localhost:8080/librarian/all-issues
     public String getAllIssues(Model model){
@@ -119,22 +86,21 @@ public class LibrarianController {
             return "librarian-add-book-page";
         }
     }
-    //UPDATE BOOK IS WORKING BUT NOT SHOWING EXISTING AUTHOR NAME, REASON - UNKNOWN
-    @GetMapping("/librarian/update-book/{id}") //localhost:8080/librarian/update-book/1
-    public String getUpdateBook(@PathVariable("id") long id, Model model){
+    @GetMapping("/librarian/update-book/{id}")
+    public String getUpdateBook(@PathVariable("id") long id, Model model) {
         try {
             model.addAttribute("book", librarianService.retrieveBookById(id));
             model.addAttribute("authors", librarianService.allAuthors());
             model.addAttribute("genres", BookGenre.values());
             return "librarian-update-book-page";
-        } catch (Exception e){
+        } catch (Exception e) {
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
         }
     }
     @PostMapping("/librarian/update-book/{id}")
-    public String postUpdateBook(@PathVariable("id") long id, @Valid Book book, BindingResult result, @RequestParam("authorId") Long authorId){
-        if(!result.hasErrors()){
+    public String postUpdateBook(@PathVariable("id") long id, @Valid Book book, BindingResult result, @RequestParam("authorId") Long authorId) {
+        if (!result.hasErrors()) {
             try {
                 Author author = librarianService.retrieveAuthorById(authorId);
                 librarianService.updateBook(
@@ -146,25 +112,26 @@ public class LibrarianController {
                         book.getWritingYear(),
                         book.getQuantity()
                 );
-                return "redirect:/librarian/all-books/" + id;
-            } catch (Exception e){
+                return "redirect:/librarian/all-books";
+            } catch (Exception e) {
                 return "redirect:/error";
             }
         } else {
             return "librarian-update-book-page";
         }
     }
-    @GetMapping("/librarian/delete-book/{id}") //localhost:8080/librarian/delete-book/1
-    public String getDeleteBook(@PathVariable("id") long id, Model model){
+    @GetMapping("/librarian/delete-book/{id}")
+    public String getDeleteBook(@PathVariable("id") long id, Model model) {
         try {
             librarianService.deleteBookById(id);
             model.addAttribute("book", librarianService.allBooks());
             return "redirect:/librarian/all-books";
-        } catch (Exception e){
+        } catch (Exception e) {
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
         }
     }
+
     //TODO add exemplar
     @GetMapping("/librarian/delete-exemplar/{id}") //localhost:8080/librarian/delete-exemplar/1
     public String getDeleteExemplar(@PathVariable("id") long id, Model model){
@@ -211,7 +178,7 @@ public class LibrarianController {
         if(!result.hasErrors()){
             try {
                 librarianService.updateUser(id, user.getName(), user.getSurname(), user.getEmail(), user.getUsername());
-                return "redirect:/librarian/all-users/" + id;
+                return "redirect:/librarian/all-users";
             } catch (Exception e){
                 return "redirect:/error";
             }
@@ -261,36 +228,36 @@ public class LibrarianController {
             return "librarian-add-author-page";
         }
     }
-    @GetMapping("/librarian/update-author/{id}") //localhost:8080/update-author/1
-    public String getUpdateAuthor(@PathVariable("id") long id, Model model){
+    @GetMapping("/librarian/update-author/{id}")
+    public String getUpdateAuthor(@PathVariable("id") long id, Model model) {
         try {
             model.addAttribute("author", librarianService.retrieveAuthorById(id));
             return "librarian-update-author-page";
-        } catch (Exception e){
+        } catch (Exception e) {
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
         }
     }
     @PostMapping("/librarian/update-author/{id}")
-    public String postUpdateAuthor(@PathVariable("id") long id, @Valid Author author, BindingResult result){
-        if(!result.hasErrors()){
+    public String postUpdateAuthor(@PathVariable("id") long id, @Valid Author author, BindingResult result) {
+        if (!result.hasErrors()) {
             try {
                 librarianService.updateAuthor(id, author.getName(), author.getSurname(), author.getDateOfBirth(), author.getDateOfDeath());
-                return "redirect:/librarian/all-authors/" + id;
-            } catch (Exception e){
+                return "redirect:/librarian/all-authors";
+            } catch (Exception e) {
                 return "redirect:/error";
             }
         } else {
             return "librarian-update-author-page";
         }
     }
-    @GetMapping("/librarian/delete-author/{id}") //localhost:8080/librarian/delete-author/1
-    public String getDeleteAuthorById(@PathVariable("id") long id, Model model){
+    @GetMapping("/librarian/delete-author/{id}")
+    public String getDeleteAuthorById(@PathVariable("id") long id, Model model) {
         try {
             librarianService.deleteAuthorById(id);
             model.addAttribute("author", librarianService.allAuthors());
             return "redirect:/librarian/all-authors";
-        } catch (Exception e){
+        } catch (Exception e) {
             model.addAttribute("packetError", e.getMessage());
             return "error-page";
         }

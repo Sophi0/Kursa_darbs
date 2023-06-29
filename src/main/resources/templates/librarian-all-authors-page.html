@@ -5,41 +5,88 @@
     <title>All authors</title>
 </head>
 <style>
+    .container {
+        position: relative;
+    }
+    .button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    .button1 {
+        position: absolute;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+    .button2 {
+        background-color: transparent;
+        color: black;
+        padding: 5px 10px 5px 0;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;
     }
-
     th, td {
         padding: 8px;
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
-
     tr:hover {
         background-color: #f5f5f5;
     }
+    h1 {
+        margin-bottom: 20px;
+    }
 </style>
 <body>
-<h1>All authors</h1>
-<table>
-    <tr>
-        <th>Author id</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Date of birth</th>
-        <th>Date of death</th>
-    </tr>
-    <th:block th:each="temp : ${author}">
+<div class="container">
+    <h1>All authors</h1>
+    <a href="/librarian/dashboard" class="button">Dashboard</a>
+    <table>
         <tr>
-            <td th:text="${temp.getIdp()}"></td>
-            <td th:text="${temp.getName()}"></td>
-            <td th:text="${temp.getSurname()}"></td>
-            <td th:text="${temp.getDateOfBirth()}"></td>
-            <td th:text="${temp.getDateOfDeath()}"></td>
+            <th>Author id</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Date of birth</th>
+            <th>Date of death</th>
+            <th>Actions</th>
         </tr>
-    </th:block>
-</table>
-
+        <th:block th:each="temp : ${author}">
+            <tr>
+                <td th:text="${temp.getIdp()}"></td>
+                <td th:text="${temp.getName()}"></td>
+                <td th:text="${temp.getSurname()}"></td>
+                <td th:text="${temp.getDateOfBirth()}"></td>
+                <td th:text="${temp.getDateOfDeath()}"></td>
+                <td>
+                    <a th:href="@{'/librarian/update-author/' + ${temp.getIdp()}}" class="button2">Update</a>
+                    <a th:href="@{'/librarian/delete-author/' + ${temp.getIdp()}}" class="button2">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+    <a href="/librarian/add-author" class="button1">Add</a>
+</div>
 </body>
 </html>

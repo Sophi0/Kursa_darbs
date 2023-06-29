@@ -5,23 +5,42 @@
     <title>All users</title>
 </head>
 <style>
+    .container {
+        position: relative;
+    }
+    .button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
     table {
         border-collapse: collapse;
         width: 100%;
     }
-
     th, td {
         padding: 8px;
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
-
     tr:hover {
         background-color: #f5f5f5;
     }
+    h1 {
+        margin-bottom: 20px;
+    }
 </style>
 <body>
-<h1>All users</h1>
+<div class="container">
+    <h1>All users</h1>
+    <a href="/librarian/dashboard" class="button">Dashboard</a>
 <table>
     <tr>
         <th>User id</th>
